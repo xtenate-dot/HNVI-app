@@ -25,20 +25,20 @@ header p{font-size:11px;opacity:.65;margin-top:1px}
 .hdr-btn-ghost:hover{background:rgba(255,255,255,.25)}
 .hdr-btn-accent{background:var(--accent);color:white}
 .hdr-btn-accent:hover{background:#e8924f}
-
+ 
 .tabs{display:flex;background:white;border-bottom:1px solid var(--border);padding:0 20px;gap:4px}
 .tab{padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;color:var(--muted);transition:all .15s;white-space:nowrap}
 .tab.active{color:var(--brand);border-bottom-color:var(--brand)}
 .tab:hover:not(.active){color:var(--text)}
 .tab-badge{background:var(--accent);color:white;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;margin-left:5px}
-
+ 
 .main{max-width:1100px;margin:0 auto;padding:24px 20px}
 .panel{display:none}.panel.active{display:block}
-
+ 
 /* Cards */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:16px}
 .card-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px}
-
+ 
 /* Buttons */
 .btn{padding:10px 18px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .15s}
 .btn-primary{background:var(--brand);color:white;width:100%;justify-content:center;padding:13px;font-size:15px}
@@ -50,14 +50,14 @@ header p{font-size:11px;opacity:.65;margin-top:1px}
 .btn-danger:hover{background:#fcc}
 .btn-ghost{background:transparent;color:var(--muted);font-size:13px;padding:7px 12px;border:1px solid var(--border)}
 .btn-ghost:hover{background:var(--bg)}
-
+ 
 /* Inputs */
 input[type=text],input[type=number],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);font-family:inherit;outline:none;transition:border-color .15s}
 input:focus,textarea:focus{border-color:var(--brand);background:white}
 textarea{resize:vertical;min-height:75px}
 label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;margin-top:12px}
 label:first-child{margin-top:0}
-
+ 
 /* Spinner */
 .spinner{width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .65s linear infinite;flex-shrink:0}
 .spinner-brand{border-color:rgba(26,71,42,.15);border-top-color:var(--brand)}
@@ -71,30 +71,30 @@ label:first-child{margin-top:0}
 .bod-type-btn:hover{border-color:var(--brand);color:var(--brand)}
 .bod-type-btn.active{background:var(--brand);color:white;border-color:var(--brand)}
 @keyframes spin{to{transform:rotate(360deg)}}
-
+ 
 /* Messages */
 .msg{padding:11px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none;line-height:1.5}
 .msg.err{background:#fde8e8;color:#8b1a1a}
 .msg.ok{background:var(--brand-light);color:#1a6b35}
-
+ 
 /* ── OVERZICHT ── */
 .overzicht-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px}
 .stats-row{display:flex;gap:12px;flex-wrap:wrap}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:center;min-width:80px}
 .stat-num{font-size:22px;font-weight:800}
 .stat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-
+ 
 .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .filter-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:white;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
 .filter-btn.active{background:var(--brand);color:white;border-color:var(--brand)}
-
+ 
 .kavel-list{display:flex;flex-direction:column;gap:10px}
 .kavel-row{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:11px 14px;display:grid;grid-template-columns:auto auto 1fr auto;gap:10px;align-items:center;transition:border-color .15s}
 .kavel-row:hover{border-color:#b2dfbe}
 .kavel-row.analyseren{border-left:4px solid var(--accent)}
 .kavel-row.klaar{border-left:4px solid #4caf50}
 .kavel-row.skip{border-left:4px solid #ef5350;opacity:.7}
-
+ 
 .kavel-num{font-size:11px;font-weight:700;color:var(--muted);width:20px}
 .kavel-main{}
 .kavel-titel{font-size:14px;font-weight:700;margin-bottom:3px;line-height:1.3}
@@ -113,13 +113,13 @@ label:first-child{margin-top:0}
 .s-klaar{background:#43a047}
 .s-twijfel{background:#fb8c00}
 .s-skip{background:#e53935}
-
+ 
 .kavel-acties{display:flex;flex-direction:row;gap:5px;align-items:center;flex-shrink:0}
-
+ 
 /* ── ANALYSE DETAIL ── */
 .back-btn{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--brand);cursor:pointer;margin-bottom:18px;padding:8px 12px;background:var(--brand-light);border-radius:8px;border:none}
 .back-btn:hover{background:#c8e6c9}
-
+ 
 .verdict{border-radius:12px;padding:16px 18px;margin-bottom:16px;border:1px solid}
 .v-kopen{background:#dcf5e4;border-color:#a8dbb9}
 .v-twijfel{background:#fff8e1;border-color:#ffe082}
@@ -127,13 +127,13 @@ label:first-child{margin-top:0}
 .verdict h3{font-size:16px;font-weight:700;margin-bottom:5px}
 .v-kopen h3{color:#1a6b35}.v-twijfel h3{color:#7a5c00}.v-skip h3{color:#8b1a1a}
 .verdict p{font-size:14px;line-height:1.6}
-
+ 
 .costs-box{background:#fffbf0;border:1px solid #ffe082;border-radius:11px;padding:15px;margin-bottom:16px}
 .costs-box h4{font-size:12px;font-weight:700;color:#7a5c00;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .c-row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;border-bottom:1px solid #fff3c444}
 .c-row:last-child{border-bottom:none;font-weight:700;font-size:15px}
 .c-pos{color:#1a6b35;font-weight:700}.c-neg{color:#e63946;font-weight:700}
-
+ 
 .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
 .p-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px}
 .p-platform{font-size:14px;font-weight:800;margin-bottom:10px}
@@ -147,22 +147,22 @@ label:first-child{margin-top:0}
 .b-high{background:#dcf5e4;color:#1a6b35}.b-mid{background:#fff3cd;color:#856404}.b-low{background:#fde8e8;color:#8b1a1a}
 .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
 .tag{background:#f0f4f0;font-size:12px;padding:2px 8px;border-radius:20px}
-
+ 
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
 .detail-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px}
 .detail-card ul{list-style:none}
 .detail-card ul li{font-size:13px;padding:5px 0;border-bottom:1px solid var(--bg);display:flex;gap:7px;line-height:1.4}
 .detail-card ul li:last-child{border-bottom:none}
 .detail-card ul li::before{content:'→';color:var(--brand);font-weight:700;flex-shrink:0}
-
+ 
 .roi-wrap{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px;margin-bottom:16px}
 .roi-bar{height:9px;background:var(--border);border-radius:99px;overflow:hidden;margin:7px 0 5px}
 .roi-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#f4a261,#2d6a4f);transition:width 1s ease}
 .roi-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
-
+ 
 .foto-obs{background:#f0f7f2;border-radius:9px;padding:12px 14px;font-size:13px;line-height:1.6;margin-bottom:16px;border:1px solid #c8e6c9}
 .foto-obs strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px}
-
+ 
 /* Upload */
 .upload-zone{border:2px dashed var(--border);border-radius:10px;padding:18px;text-align:center;cursor:pointer;position:relative;transition:all .15s;background:var(--bg)}
 .upload-zone:hover,.upload-zone.drag{border-color:var(--brand);background:var(--brand-light)}
@@ -172,7 +172,7 @@ label:first-child{margin-top:0}
 .prev{position:relative;width:72px;height:72px}
 .prev img{width:72px;height:72px;object-fit:cover;border-radius:7px;border:1px solid var(--border);display:block}
 .prev-del{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#e63946;color:white;border:none;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-
+ 
 /* Steps */
 .steps{display:flex;flex-direction:column;gap:7px;margin-top:14px}
 .step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);padding:9px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
@@ -180,7 +180,7 @@ label:first-child{margin-top:0}
 .step.done{color:#1a6b35}
 .step-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
 .step-spinner{width:15px;height:15px;border:2px solid rgba(26,71,42,.2);border-top-color:var(--brand);border-radius:50%;animation:spin .65s linear infinite;flex-shrink:0}
-
+ 
 /* Leeg scherm */
 .empty{text-align:center;padding:48px 20px;color:var(--muted)}
 .kavel-checkbox{width:20px;height:20px;accent-color:var(--brand);cursor:pointer;flex-shrink:0;margin-top:2px}
@@ -191,7 +191,7 @@ label:first-child{margin-top:0}
 .empty-icon{font-size:48px;margin-bottom:14px}
 .empty h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
 .empty p{font-size:14px;line-height:1.6;max-width:400px;margin:0 auto 18px}
-
+ 
 /* PWA safe area voor notch/thuisknop */
 @supports(padding: env(safe-area-inset-bottom)) {
   header { padding-top: max(14px, env(safe-area-inset-top)); }
@@ -212,7 +212,7 @@ label:first-child{margin-top:0}
 </style>
 </head>
 <body>
-
+ 
 <div id="apikey-bar" class="apikey-bar" style="display:none">
   <span>🔑 <strong>API Key vereist</strong> — haal op via <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--brand)">console.anthropic.com</a></span>
   <input type="password" id="apikey-input" placeholder="sk-ant-..." />
@@ -232,13 +232,13 @@ label:first-child{margin-top:0}
     <button class="hdr-btn hdr-btn-accent" onclick="switchTab('analyse')">+ Kavel toevoegen</button>
   </div>
 </header>
-
+ 
 <div class="tabs">
   <div class="tab active" onclick="switchTab('overzicht')">📋 Overzicht <span class="tab-badge" id="badge-count">0</span></div>
   <div class="tab" onclick="switchTab('analyse')">🔍 Kavel analyseren</div>
   <div class="tab" onclick="switchTab('handleiding')">📖 Handleiding</div>
 </div>
-
+ 
 <div id="selectie-balk" style="display:none;background:#fff8e1;border-bottom:1px solid #ffe082;padding:10px 20px;display:none;align-items:center;gap:12px;flex-wrap:wrap">
   <span id="selectie-aantal" style="font-size:13px;font-weight:600;color:#7a5c00">0 geselecteerd</span>
   <button class="hdr-btn" style="background:#e53935;color:white;padding:7px 14px;font-size:13px" onclick="verwijderSelectie()">🗑 Verwijder geselecteerde</button>
@@ -247,7 +247,7 @@ label:first-child{margin-top:0}
   <button class="hdr-btn hdr-btn-ghost" style="background:transparent;color:#7a5c00;border:1px solid #ffe082;padding:7px 14px;font-size:13px;margin-left:auto" onclick="toggleSelectieModus()">Annuleren</button>
 </div>
 <div class="main">
-
+ 
 <!-- ══ TAB: OVERZICHT ══ -->
 <div id="tab-overzicht" class="panel active">
   <div id="overzicht-leeg" class="empty" style="display:none">
@@ -256,7 +256,7 @@ label:first-child{margin-top:0}
     <p>Ga naar een HNVI veilingpagina, klik op het extensie-icoon en kies "Alle kavels ophalen". Of voeg handmatig een kavel toe.</p>
     <button class="btn btn-sm" onclick="switchTab('analyse')">+ Kavel handmatig toevoegen</button>
   </div>
-
+ 
   <div id="overzicht-inhoud" style="display:none">
     <div class="overzicht-header">
       <div class="stats-row" id="stats-row"></div>
@@ -276,17 +276,17 @@ label:first-child{margin-top:0}
     <div class="kavel-list" id="kavel-list"></div>
   </div>
 </div>
-
+ 
 <!-- ══ TAB: ANALYSE ══ -->
 <div id="tab-analyse" class="panel">
   <div id="analyse-result" style="display:none"></div>
-
+ 
   <div class="card" id="analyse-form">
     <div class="card-title">🔗 Kavel toevoegen</div>
-
+ 
     <label>HNVI kavel URL</label>
     <input type="text" id="kavel-url" placeholder="https://www.hnvi.nl/veiling-kavel/..." />
-
+ 
     <label style="margin-top:14px">💶 Bod (€)</label>
     <div style="display:flex;gap:8px;margin-bottom:8px">
       <button class="bod-type-btn active" id="bod-type-ander" onclick="setBodType('ander',this)">👤 Huidig bod (van iemand anders)</button>
@@ -297,7 +297,7 @@ label:first-child{margin-top:0}
       <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--muted)">€</span>
       <input type="text" id="huidig-bod" placeholder="bijv. 8500" style="padding-left:26px;font-size:16px;font-weight:700" />
     </div>
-
+ 
     <label style="margin-top:14px">📷 Foto's
       <span style="font-weight:400;font-size:11px;color:#9ab39e"> — optioneel, voor visuele staat check</span>
     </label>
@@ -306,15 +306,15 @@ label:first-child{margin-top:0}
       <p>📷 Sleep foto's hierheen of <strong style="color:var(--brand)">klik om te uploaden</strong></p>
     </div>
     <div class="previews" id="previews"></div>
-
+ 
     <label style="margin-top:14px">📝 Extra opmerkingen <span style="font-weight:400;font-size:11px;color:#9ab39e">— optioneel</span></label>
     <textarea id="extra-txt" placeholder="Eigen observaties, wat je wilt weten, bijzonderheden..."></textarea>
-
+ 
     <button class="btn btn-primary" id="analyse-btn" onclick="analyseer()">
       <span id="analyse-btn-txt">🔍 Analyseer kavel</span>
     </button>
     <div class="msg err" id="analyse-err"></div>
-
+ 
     <div id="stappen" style="display:none">
       <div class="steps">
         <div class="step" id="stap1"><span class="step-icon">🔎</span> HNVI pagina ophalen & bod lezen</div>
@@ -324,7 +324,7 @@ label:first-child{margin-top:0}
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ TAB: HANDLEIDING ══ -->
 <div id="tab-handleiding" class="panel">
   <div class="card">
@@ -363,15 +363,15 @@ label:first-child{margin-top:0}
     </div>
   </div>
 </div>
-
+ 
 </div><!-- /main -->
-
+ 
 <script>
 // ══ State & Storage ══════════════════════════════════════════════════════════
 let kavels = [];
 let actieveFilter = 'alles';
 let imgs = [];
-
+ 
 async function laadKavels() {
   // Probeer chrome.storage (extensie context)
   if (typeof chrome !== 'undefined' && chrome.storage) {
@@ -394,7 +394,7 @@ async function laadKavels() {
     try { kavels = JSON.parse(localStorage.getItem('hnvi_kavels') || '[]'); } catch(e) { kavels = []; }
   }
 }
-
+ 
 async function slaKavelsOp() {
   if (typeof chrome !== 'undefined' && chrome.storage) {
     return new Promise(resolve => chrome.storage.local.set({ kavels }, resolve));
@@ -402,14 +402,14 @@ async function slaKavelsOp() {
     localStorage.setItem('hnvi_kavels', JSON.stringify(kavels));
   }
 }
-
+ 
 function laadKavelInForm(k) {
   switchTab('analyse');
   document.getElementById('kavel-url').value = k.url || '';
   if (k.huidig_bod) document.getElementById('huidig-bod').value = k.huidig_bod.toString().replace(/[^0-9.,]/g,'');
   if (k.beschrijving) document.getElementById('extra-txt').value = k.beschrijving;
 }
-
+ 
 // ══ Tabs ══════════════════════════════════════════════════════════════════════
 function switchTab(name) {
   document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['overzicht','analyse','handleiding'][i] === name));
@@ -417,7 +417,7 @@ function switchTab(name) {
   document.getElementById('tab-' + name).classList.add('active');
   if (name === 'overzicht') renderOverzicht();
 }
-
+ 
 // ══ Upload ════════════════════════════════════════════════════════════════════
 const zone = document.getElementById('upload-zone');
 document.getElementById('foto-input').addEventListener('change', e => leesFiles(e.target.files));
@@ -443,7 +443,7 @@ function delImg(id) {
   imgs = imgs.filter(i => i.id !== id);
   document.getElementById('prev-'+id)?.remove();
 }
-
+ 
 // ══ Stappen UI ════════════════════════════════════════════════════════════════
 function setStap(n) {
   document.getElementById('stappen').style.display = 'block';
@@ -465,12 +465,44 @@ function setStap(n) {
   });
 }
 function verbergStappen() { document.getElementById('stappen').style.display = 'none'; }
-
+ 
 // ══ Claude API ════════════════════════════════════════════════════════════════
+// ── Echte prijzen ophalen via meerdere bronnen ────────────────────────────────
+async function zoekEchtePrijzen(product) {
+  const resultaten = [];
+ 
+  // Bron 1: DuckDuckGo Instant Answer
+  try {
+    const q = encodeURIComponent(product + ' marktplaats prijs tweedehands');
+    const r = await fetch(`https://api.duckduckgo.com/?q=${q}&format=json&no_html=1&skip_disambig=1`, {signal: AbortSignal.timeout(4000)});
+    if (r.ok) {
+      const d = await r.json();
+      const tekst = d.AbstractText || d.Answer || '';
+      if (tekst.length > 20) resultaten.push('DuckDuckGo: ' + tekst.slice(0, 300));
+      // Zoek ook in RelatedTopics naar prijzen
+      (d.RelatedTopics||[]).slice(0,3).forEach(t => {
+        if (t.Text && /€|\d+/.test(t.Text)) resultaten.push(t.Text.slice(0,150));
+      });
+    }
+  } catch(e) {}
+ 
+  // Bron 2: Wikipedia voor nieuwprijs (via REST API)
+  try {
+    const titel = encodeURIComponent(product.split(' ').slice(0,4).join(' '));
+    const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${titel}`, {signal: AbortSignal.timeout(3000)});
+    if (r.ok) {
+      const d = await r.json();
+      if (d.extract && d.extract.length > 30) resultaten.push('Wiki: ' + d.extract.slice(0, 200));
+    }
+  } catch(e) {}
+ 
+  return resultaten.length > 0 ? resultaten.join(' | ') : null;
+}
+ 
 function getApiKey() {
   return localStorage.getItem('hnvi_apikey') || '';
 }
-
+ 
 function slaApiKeyOp() {
   const key = document.getElementById('apikey-input').value.trim();
   if (!key.startsWith('sk-ant-')) {
@@ -480,12 +512,12 @@ function slaApiKeyOp() {
   localStorage.setItem('hnvi_apikey', key);
   checkApiKey();
 }
-
+ 
 function resetApiKey() {
   localStorage.removeItem('hnvi_apikey');
   checkApiKey();
 }
-
+ 
 function checkApiKey() {
   const key = getApiKey();
   // In extensie context: geen key nodig (Claude.ai injecteert die)
@@ -493,30 +525,64 @@ function checkApiKey() {
   document.getElementById('apikey-bar').style.display = (!key && !isExtensie) ? 'flex' : 'none';
   document.getElementById('apikey-ok').style.display = (key && !isExtensie) ? 'flex' : 'none';
 }
-
+ 
 async function callClaude(system, userContent, tools, maxTokens) {
   const key = getApiKey();
   const isExtensie = typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id;
-  
+ 
   if (!key && !isExtensie) {
     throw new Error("Voer eerst een API key in (zie de gele balk bovenaan).");
   }
-
+ 
   const headers = { "Content-Type": "application/json" };
   if (key) {
     headers["x-api-key"] = key;
     headers["anthropic-version"] = "2023-06-01";
     headers["anthropic-dangerous-direct-browser-access"] = "true";
   }
-
-  const body = { model:"claude-sonnet-4-6", max_tokens: maxTokens||600, system, messages:[{role:"user",content:userContent}] };
-  if (tools) body.tools = tools;
-
-  const resp = await fetch("https://api.anthropic.com/v1/messages", {
-    method:"POST", headers, body:JSON.stringify(body)
-  });
-  const data = await resp.json();
-  if (data.error) throw new Error("API: "+data.error.message);
+ 
+  const messages = [{role:"user", content:userContent}];
+  let data;
+ 
+  // Loop voor tool use (websearch kan meerdere rondes nodig hebben)
+  for (let ronde = 0; ronde < 5; ronde++) {
+    const body = {
+      model: "claude-sonnet-4-6",
+      max_tokens: maxTokens || 600,
+      system,
+      messages
+    };
+    if (tools) body.tools = tools;
+ 
+    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST", headers, body:JSON.stringify(body)
+    });
+    data = await resp.json();
+    if (data.error) throw new Error("API: " + data.error.message);
+ 
+    // Stop als er geen tool gebruik meer is
+    if (data.stop_reason !== 'tool_use') break;
+ 
+    // Voeg assistant response toe aan messages
+    messages.push({role:"assistant", content: data.content});
+ 
+    // Verwerk tool results
+    const toolResults = [];
+    for (const block of data.content) {
+      if (block.type === 'tool_use') {
+        // Web search result komt automatisch terug - stuur lege result terug
+        toolResults.push({
+          type: "tool_result",
+          tool_use_id: block.id,
+          content: "Zoekresultaten verwerkt."
+        });
+      }
+    }
+    if (toolResults.length > 0) {
+      messages.push({role:"user", content: toolResults});
+    }
+  }
+ 
   return data;
 }
 function getText(data) { return data.content.map(b=>b.type==='text'?b.text:'').join(''); }
@@ -529,7 +595,7 @@ function parseJSON(text) {
   return null;
 }
 const fmt = n => n!=null&&Number.isFinite(n) ? '€'+Math.round(n).toLocaleString('nl-NL') : '–';
-
+ 
 // ══ Bod type ══════════════════════════════════════════════════════════════════
 let bodType = 'ander'; // 'ander' of 'eigen'
 function setBodType(type, btn) {
@@ -548,7 +614,7 @@ function setBodType(type, btn) {
     input.placeholder = 'bijv. 8500';
   }
 }
-
+ 
 // ══ Analyseer kavel ════════════════════════════════════════════════════════════
 async function analyseer(kavelIdx) {
   const url = document.getElementById('kavel-url').value.trim();
@@ -560,6 +626,8 @@ async function analyseer(kavelIdx) {
   document.getElementById('analyse-err').style.display='none';
   document.getElementById('analyse-result').style.display='none';
   setBtn('analyse-btn','analyse-btn-txt',true,'<span class="spinner"></span> Analyseren...');
+  const tools = [{type:"web_search_20250305", name:"web_search"}];
+ 
   try {
     // Stap 1: kavel ophalen
     setStap(1);
@@ -571,23 +639,32 @@ Geef ALLEEN dit JSON object, niets anders:
     s1content.push({type:"text",text:url?`Haal kavel op van: ${url}${extra?'\nExtra: '+extra:''}`:`Analyseer kavel.${extra?'\n'+extra:''}`});
     const d1 = await callClaude(s1sys, s1content, null, 500);
     const kavel = parseJSON(getText(d1)) || {titel:extra||'Onbekend',huidig_bod:null,beschrijving:extra};
-
+ 
     // Handmatig bod override
     const handBod = bodStr ? parseFloat(bodStr.replace(',','.')) : null;
     const bod = handBod || (kavel.huidig_bod ? parseFloat(String(kavel.huidig_bod).replace(/[^0-9.]/g,'')) : null);
-
-    // Stap 2: 2e hands prijzen
+ 
+    // Stap 2: live 2e hands prijzen via websearch
     setStap(2);
     const zoekterm = kavel.titel || extra || 'product';
-    const s2sys = `Jij bent een prijsexpert voor 2e hands goederen in Nederland. Geef marktprijzen voor het opgegeven product.
-
-BELANGRIJK: Retourneer UITSLUITEND het JSON object hieronder, geen uitleg, geen tekst ervoor of erna.
-Vul ALTIJD realistische getallen in voor laag/gemiddeld/hoog. Gebruik nooit 0 als prijs.
-
-{"productnaam":"exacte productnaam","categorie":"categorie","nieuwprijs":999,"nieuwprijs_bron":"schatting op basis van marktkennis","marktplaats":{"laag":100,"gemiddeld":150,"hoog":200,"vertrouwen":"middel","tip":"concrete verkooptip voor Marktplaats","verkooptijd":"1-2 weken","zoekwoorden":["woord1","woord2"]},"ebay":{"laag":120,"gemiddeld":170,"hoog":220,"vertrouwen":"middel","tip":"concrete verkooptip voor eBay","verkooptijd":"1-2 weken","keywords":["word1","word2"]},"aandachtspunten":["punt1","punt2"]}`;
-    const d2 = await callClaude(s2sys,[{type:"text",text:`Product: ${zoekterm}\nBeschrijving: ${kavel.beschrijving||'geen'}\nGeef de JSON marktprijzen.`}],null,800);
-    const prijzen = parseJSON(getText(d2));
-    if (!prijzen) {
+ 
+    const s2sys = `Je bent een Nederlandse veilinghandelaar. Zoek LIVE de huidige 2e hands verkoopprijzen op voor: "${zoekterm}".
+ 
+Gebruik web_search om te zoeken op:
+1. marktplaats.nl ${zoekterm} - voor Nederlandse 2e hands prijzen
+2. ebay.nl ${zoekterm} - voor eBay prijzen
+ 
+Kijk naar ACTIEVE advertenties en VERKOCHTE items.
+Geef ALLEEN dit JSON object terug, geen tekst ervoor of erna:
+{"productnaam":"string","categorie":"string","nieuwprijs":number_or_null,"nieuwprijs_bron":"string","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
+ 
+    // Websearch aanroep - verwerk alle content blocks inclusief tool results
+    const d2raw = await callClaude(s2sys, [{type:"text", text:`Zoek live Marktplaats en eBay prijzen voor: ${zoekterm}. Beschrijving: ${kavel.beschrijving||'geen'}`}], tools, 1500);
+    // Pak alle tekst uit de response inclusief na tool gebruik
+    const allText2 = d2raw.content.map(b => b.type === 'text' ? b.text : '').join('');
+    const prijzen = parseJSON(allText2);
+ 
+        if (!prijzen) {
       // Probeer opnieuw met een nog simpelere prompt
       const retryTxt = await callClaude(
         'Geef ALLEEN een JSON object met 2e hands Marktplaats en eBay prijzen. Geen tekst, alleen JSON.',
@@ -598,10 +675,10 @@ Vul ALTIJD realistische getallen in voor laag/gemiddeld/hoog. Gebruik nooit 0 al
       if (!prijzen2) throw new Error("Kon geen marktprijzen ophalen. Probeer een duidelijkere kavelbeschrijving.");
       Object.assign(prijzen, prijzen2);
     }
-
+ 
     // Wacht 5 seconden voor rate limit
     await new Promise(r => setTimeout(r, 5000));
-
+ 
     // Stap 3: advies + foto analyse
     setStap(3);
     let fotoObs = null;
@@ -611,7 +688,7 @@ Vul ALTIJD realistische getallen in voor laag/gemiddeld/hoog. Gebruik nooit 0 al
       const df = await callClaude("Beoordeel de staat van dit product op de foto. Antwoord in het Nederlands, gewone tekst, max 2 zinnen.",fc,null,200);
       fotoObs = getText(df).trim();
     }
-
+ 
     // Kosten berekenen
     let kosten = null;
     if (bod && !isNaN(bod)) {
@@ -619,7 +696,7 @@ Vul ALTIJD realistische getallen in voor laag/gemiddeld/hoog. Gebruik nooit 0 al
       const marge = prijzen.marktplaats ? prijzen.marktplaats.gemiddeld - totaal : null;
       kosten = {bod,veilingkosten:vk,btw,totaal,marge};
     }
-
+ 
     // Advies
     let advies='twijfel', adviesReden='', roi=50;
     const mp = prijzen.marktplaats;
@@ -629,11 +706,11 @@ Vul ALTIJD realistische getallen in voor laag/gemiddeld/hoog. Gebruik nooit 0 al
       const marge_pct = Math.round((m / mp.gemiddeld) * 100);
       // ROI = marge tov inkoopprijs, begrensd 0-100
       roi = Math.min(95, Math.max(5, Math.round(50 + (m / kosten.totaal) * 100)));
-
+ 
       if (m > 0 && marge_pct >= 20) { advies = 'kopen'; }
       else if (m < -50 || marge_pct < -10) { advies = 'skip'; }
       else { advies = 'twijfel'; }
-
+ 
       adviesReden = m > 0
         ? `Inkoopprijs ${fmt(kosten.totaal)} · MP verkoopprijs ~${fmt(mp.gemiddeld)} → marge ${fmt(m)} (${marge_pct}% van verkoopprijs).`
         : `Inkoopprijs ${fmt(kosten.totaal)} ligt ${fmt(Math.abs(m))} bóven de gemiddelde MP verkoopprijs van ${fmt(mp.gemiddeld)} (${marge_pct}%).`;
@@ -641,7 +718,7 @@ Vul ALTIJD realistische getallen in voor laag/gemiddeld/hoog. Gebruik nooit 0 al
       const maxBod = mp ? Math.round(mp.laag * 0.8 / (1.17*1.21)) : null;
       adviesReden = `Geen bod beschikbaar.${maxBod ? ` Maximaal rendabel bieden: ${fmt(maxBod)}.` : ' Vul het huidig bod in voor margeberekening.'}`;
     }
-
+ 
     // Sla op in kavels lijst
     const maxBod = mp ? Math.round(mp.laag * 0.8 / (1.17*1.21)) : null;
     const kavelData = {
@@ -667,17 +744,17 @@ Vul ALTIJD realistische getallen in voor laag/gemiddeld/hoog. Gebruik nooit 0 al
       toegevoegd: Date.now(),
       status: advies === 'kopen' ? 'klaar' : advies === 'skip' ? 'skip' : 'klaar'
     };
-
+ 
     // Vervang als al bestaat, anders toevoegen
     const bestaandIdx = kavels.findIndex(k=>k.url===url&&url);
     if (bestaandIdx >= 0) kavels[bestaandIdx] = kavelData;
     else kavels.unshift(kavelData);
     await slaKavelsOp();
     updateBadge();
-
+ 
     verbergStappen();
     toonAnalyseResultaat(kavelData);
-
+ 
   } catch(e) {
     console.error(e);
     verbergStappen();
@@ -686,7 +763,7 @@ Vul ALTIJD realistische getallen in voor laag/gemiddeld/hoog. Gebruik nooit 0 al
     setBtn('analyse-btn','analyse-btn-txt',false,'🔍 Analyseer kavel');
   }
 }
-
+ 
 function toonAnalyseResultaat(d) {
   const vClass = d.advies==='kopen'?'v-kopen':d.advies==='twijfel'?'v-twijfel':'v-skip';
   const vEmoji = d.advies==='kopen'?'✅':d.advies==='twijfel'?'⚠️':'❌';
@@ -695,7 +772,7 @@ function toonAnalyseResultaat(d) {
   const conf = v=>v==='hoog'?'b-high':v==='middel'?'b-mid':'b-low';
   const confTxt = v=>v==='hoog'?'✓ Betrouwbaar':v==='middel'?'~ Indicatief':'? Onzeker';
   const mp=d.prijzen?.marktplaats, eb=d.prijzen?.ebay;
-
+ 
   const el = document.getElementById('analyse-result');
   el.style.display='block';
   el.innerHTML = `
@@ -770,7 +847,7 @@ function toonAnalyseResultaat(d) {
   `;
   el.scrollIntoView({behavior:'smooth',block:'start'});
 }
-
+ 
 // ══ Overzicht ═════════════════════════════════════════════════════════════════
 function setFilter(f, btn) {
   actieveFilter = f;
@@ -778,7 +855,7 @@ function setFilter(f, btn) {
   btn.classList.add('active');
   renderOverzicht();
 }
-
+ 
 function renderOverzicht() {
   const gefilterd = kavels.filter(k => {
     if (actieveFilter==='alles') return true;
@@ -786,15 +863,15 @@ function renderOverzicht() {
     if (actieveFilter==='eigen') return k.eigen_bod === true;
     return k.advies === actieveFilter;
   });
-
+ 
   const leeg = document.getElementById('overzicht-leeg');
   const inhoud = document.getElementById('overzicht-inhoud');
-
+ 
   if (kavels.length === 0) {
     leeg.style.display='block'; inhoud.style.display='none'; return;
   }
   leeg.style.display='none'; inhoud.style.display='block';
-
+ 
   // Stats
   const nBied=kavels.filter(k=>k.advies==='kopen').length;
   const nTwij=kavels.filter(k=>k.advies==='twijfel').length;
@@ -809,18 +886,18 @@ function renderOverzicht() {
     <div class="stat"><div class="stat-num" style="color:var(--muted)">${nWacht}</div><div class="stat-lbl">Wacht</div></div>
     <div class="stat"><div class="stat-num" style="color:#1565c0">${nEigen}</div><div class="stat-lbl">Mijn biedingen</div></div>
   `;
-
+ 
   const list = document.getElementById('kavel-list');
   if (gefilterd.length===0) { list.innerHTML='<div style="text-align:center;padding:24px;color:var(--muted);font-size:14px">Geen kavels in deze categorie</div>'; return; }
-
+ 
   huidigGefilterd = gefilterd;
-
+ 
   // Render kavels via DOM (geen template strings met geneste backticks)
   list.innerHTML = '';
   gefilterd.forEach((k, i) => {
     const div = document.createElement('div');
     div.className = 'kavel-row' + (k.status ? ' ' + k.status : '');
-
+ 
     // Checkbox kolom
     const selCol = document.createElement('div');
     selCol.className = 'selectie-col';
@@ -831,20 +908,20 @@ function renderOverzicht() {
     cb.onchange = () => selecteerRij(i, cb.checked);
     selCol.appendChild(cb);
     div.appendChild(selCol);
-
+ 
     // Klik op rij
     div.onclick = e => rijKlikIdx(e, i, cb);
-
+ 
     // Nummer
     const num = document.createElement('div');
     num.className = 'kavel-num';
     num.textContent = i + 1;
     div.appendChild(num);
-
+ 
     // Main inhoud
     const main = document.createElement('div');
     main.className = 'kavel-main';
-
+ 
     // Titel
     const titel = document.createElement('div');
     titel.className = 'kavel-titel';
@@ -856,26 +933,26 @@ function renderOverzicht() {
       titel.appendChild(badge);
     }
     main.appendChild(titel);
-
+ 
     // Meta
     const meta = document.createElement('div');
     meta.className = 'kavel-meta';
     let metaTxt = (k.veiling || 'HNVI') + (k.kavelnummer ? ' · Kavel ' + k.kavelnummer : '');
     meta.innerHTML = metaTxt + (k.url ? ' · <a href="' + k.url + '" target="_blank" style="color:var(--brand);text-decoration:none">↗ HNVI</a>' : '');
     main.appendChild(meta);
-
+ 
     // Pills
     const pills = document.createElement('div');
     pills.className = 'kavel-pills';
     pills.style.marginTop = '4px';
-
+ 
     const aBadge = document.createElement('span');
     if (k.advies === 'kopen') { aBadge.className = 'pill pill-status s-klaar'; aBadge.textContent = '✓ Bied!'; }
     else if (k.advies === 'twijfel') { aBadge.className = 'pill pill-status s-twijfel'; aBadge.textContent = '~ Twijfel'; }
     else if (k.advies === 'skip') { aBadge.className = 'pill pill-status s-skip'; aBadge.textContent = '✗ Skip'; }
     else { aBadge.className = 'pill pill-status s-wacht'; aBadge.textContent = '⏳ Wacht'; }
     pills.appendChild(aBadge);
-
+ 
     if (k.huidig_bod) {
       const p = document.createElement('span');
       p.className = 'pill ' + (k.eigen_bod ? 'pill-eigen-bod' : 'pill-bod');
@@ -901,7 +978,7 @@ function renderOverzicht() {
       pills.appendChild(p);
     }
     main.appendChild(pills);
-
+ 
     // Advies reden
     if (k.adviesReden) {
       const reden = document.createElement('div');
@@ -911,36 +988,36 @@ function renderOverzicht() {
       main.appendChild(reden);
     }
     div.appendChild(main);
-
+ 
     // Actie knoppen
     const acties = document.createElement('div');
     acties.className = 'kavel-acties';
-
+ 
     const btnDetails = document.createElement('button');
     btnDetails.className = 'btn btn-sm';
     btnDetails.textContent = 'Details';
     btnDetails.onclick = e => { e.stopPropagation(); openKavelDetail(kavels.indexOf(k)); };
     acties.appendChild(btnDetails);
-
+ 
     const btnHer = document.createElement('button');
     btnHer.className = 'btn btn-sm';
     btnHer.textContent = '↺ Heranalyseer';
     btnHer.onclick = e => { e.stopPropagation(); heranalyseer(kavels.indexOf(k)); };
     acties.appendChild(btnHer);
-
+ 
     const btnDel = document.createElement('button');
     btnDel.className = 'btn btn-danger';
     btnDel.textContent = '✕';
     btnDel.onclick = e => { e.stopPropagation(); verwijderKavel(kavels.indexOf(k)); };
     acties.appendChild(btnDel);
-
+ 
     div.appendChild(acties);
     list.appendChild(div);
   });
   // Zet selectie-modus class correct na render
   list.classList.toggle('selectie-modus', selectieModus);
 }
-
+ 
 function openKavelDetail(idx) {
   const k = kavels[idx];
   if (k.prijzen) {
@@ -951,7 +1028,7 @@ function openKavelDetail(idx) {
     heranalyseer(idx);
   }
 }
-
+ 
 function heranalyseer(idx) {
   const k = kavels[idx];
   switchTab('analyse');
@@ -964,14 +1041,14 @@ function heranalyseer(idx) {
   document.getElementById('analyse-result').style.display='none';
   document.getElementById('analyse-err').style.display='none';
 }
-
+ 
 async function verwijderKavel(idx) {
   kavels.splice(idx,1);
   await slaKavelsOp();
   updateBadge();
   renderOverzicht();
 }
-
+ 
 async function analyseAlles() {
   const teAnalyseren = kavels.filter(k=>!k.prijzen);
   if (teAnalyseren.length===0) { alert('Alle kavels zijn al geanalyseerd.'); return; }
@@ -985,13 +1062,13 @@ async function analyseAlles() {
     await new Promise(r=>setTimeout(r,1500));
   }
 }
-
+ 
 let selectieModus = false;
 // geselecteerd = Set van kavels[]-indices (stabiel want we filteren, niet splicen)
 let geselecteerd = new Set();
 // huidig gefilterde lijst (wordt bijgewerkt bij elke render)
 let huidigGefilterd = [];
-
+ 
 function toggleSelectieModus() {
   selectieModus = !selectieModus;
   geselecteerd.clear();
@@ -1002,7 +1079,7 @@ function toggleSelectieModus() {
   const lijst = document.getElementById('kavel-list');
   if (lijst) lijst.classList.toggle('selectie-modus', selectieModus);
 }
-
+ 
 function rijKlikIdx(event, gefilterdIdx, cb) {
   if (!selectieModus) return;
   if (event.target.tagName === 'INPUT') return;
@@ -1010,7 +1087,7 @@ function rijKlikIdx(event, gefilterdIdx, cb) {
   if (cb) cb.checked = nieuweStaat;
   selecteerRij(gefilterdIdx, nieuweStaat);
 }
-
+ 
 function selecteerRij(gefilterdIdx, checked) {
   if (checked) geselecteerd.add(gefilterdIdx);
   else geselecteerd.delete(gefilterdIdx);
@@ -1018,12 +1095,12 @@ function selecteerRij(gefilterdIdx, checked) {
   if (rijen[gefilterdIdx]) rijen[gefilterdIdx].classList.toggle('geselecteerd', checked);
   updateSelectieTeller();
 }
-
+ 
 function updateSelectieTeller() {
   const el = document.getElementById('selectie-aantal');
   if (el) el.textContent = geselecteerd.size + ' geselecteerd';
 }
-
+ 
 function allesAanvinken() {
   geselecteerd.clear();
   document.querySelectorAll('.kavel-row').forEach((r, i) => {
@@ -1033,14 +1110,14 @@ function allesAanvinken() {
   document.querySelectorAll('.kavel-checkbox').forEach(cb => cb.checked = true);
   updateSelectieTeller();
 }
-
+ 
 function allesUitvinken() {
   geselecteerd.clear();
   document.querySelectorAll('.kavel-row').forEach(r => r.classList.remove('geselecteerd'));
   document.querySelectorAll('.kavel-checkbox').forEach(cb => cb.checked = false);
   updateSelectieTeller();
 }
-
+ 
 async function verwijderSelectie() {
   if (geselecteerd.size === 0) { alert('Vink eerst kavels aan.'); return; }
   if (!confirm(geselecteerd.size + ' kavel(s) verwijderen?')) return;
@@ -1065,11 +1142,11 @@ async function verwijderSelectie() {
   updateBadge();
   renderOverzicht();
 }
-
+ 
 function updateBadge() {
   document.getElementById('badge-count').textContent = kavels.length;
 }
-
+ 
 // ══ Helpers ════════════════════════════════════════════════════════════════════
 function setBtn(id,txtId,disabled,html) {
   document.getElementById(id).disabled=disabled;
@@ -1080,7 +1157,7 @@ function toonMsg(id,msg) {
   el.textContent='⚠️ '+msg;
   el.style.display='block';
 }
-
+ 
 // ══ Init ══════════════════════════════════════════════════════════════════════
 (async()=>{
   checkApiKey();
@@ -1088,7 +1165,7 @@ function toonMsg(id,msg) {
   updateBadge();
   renderOverzicht();
 })();
-
+ 
 // PWA Service Worker registreren
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(() => {});
