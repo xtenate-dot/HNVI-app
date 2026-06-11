@@ -676,13 +676,12 @@ async function analyseer(kavelIdx) {
   try {
     // Stap 1: kavel ophalen
     setStap(1);
-    const s1sys = `Je analyseert HNVI kavels. Lees de URL en beschrijving en geef de kavelinformatie.
-Geef ALLEEN dit JSON object, niets anders:
-{"titel":"string","kavelnummer":"string","veiling":"string","beschrijving":"string","huidig_bod":number_or_null,"einddatum":"string_or_null","url":"string"}`;
+    const s1sys = `Haal kavelinformatie op van HNVI. Geef ALLEEN dit JSON object:
+{"titel":"string","kavelnummer":"string","veiling":"string","beschrijving":"string (max 50 woorden)","huidig_bod":number_or_null,"einddatum":"string_or_null","url":"string"}`;
     const s1content = [];
     imgs.forEach(img=>s1content.push({type:"image",source:{type:"base64",media_type:img.mediaType,data:img.base64}}));
     s1content.push({type:"text",text:url?`Haal kavel op van: ${url}${extra?'\nExtra: '+extra:''}`:`Analyseer kavel.${extra?'\n'+extra:''}`});
-    const d1 = await callClaude(s1sys, s1content, null, 500);
+    const d1 = await callClaude(s1sys, s1content, null, 300);
     const kavel = parseJSON(getText(d1)) || {titel:extra||'Onbekend',huidig_bod:null,beschrijving:extra};
  
     // Handmatig bod override
@@ -732,7 +731,7 @@ Geef ALLEEN dit JSON object:
       ? `\n\nLIVE MARKTPLAATS DATA (gebruik dit voor de marktplaats prijzen):\n- Laagste actieve advertentie: €${mpLive.laag}\n- Mediaan prijs: €${mpLive.gemiddeld}\n- Hoogste prijs: €${mpLive.hoog}\n- Aantal advertenties gevonden: ${mpLive.aantal}\n- Voorbeelden: ${mpLive.voorbeelden}\n\nGebruik deze LIVE data voor de marktplaats prijzen in je JSON. Niet schatten.`
       : '';
  
-    const d2raw = await callClaude(s2sys, [{type:"text", text:`Zoek actuele prijzen voor: ${zoekterm}. Kavel beschrijving: ${kavel.beschrijving||'geen'}.${mpContext}`}], tools, 2000);
+    const d2raw = await callClaude(s2sys, [{type:"text", text:`Zoek actuele prijzen voor: ${zoekterm}. Kavel beschrijving: ${kavel.beschrijving||'geen'}.${mpContext}`}], tools, 600);
     const allText2 = d2raw.content.map(b => b.type === 'text' ? b.text : '').join('');
     const prijzen = parseJSON(allText2);
  
@@ -752,13 +751,13 @@ Geef ALLEEN dit JSON object:
     await new Promise(r => setTimeout(r, 5000));
  
     await new Promise(r => setTimeout(r, 8000));
-    // Stap 3: advies + foto analyse
+    // Stap 3: alleen foto analyse als er foto's zijn
     setStap(3);
     let fotoObs = null;
     if (imgs.length > 0) {
       const fc = imgs.map(i=>({type:"image",source:{type:"base64",media_type:i.mediaType,data:i.base64}}));
-      fc.push({type:"text",text:"Beschrijf beknopt de visuele staat: schade, slijtage, volledigheid, merk/model. Max 2 zinnen."});
-      const df = await callClaude("Beoordeel de staat van dit product op de foto. Antwoord in het Nederlands, gewone tekst, max 2 zinnen.",fc,null,200);
+      fc.push({type:"text",text:"Staat van dit product in 1 zin."});
+      const df = await callClaude("Beoordeel staat product. 1 zin Nederlands.",fc,null,80);
       fotoObs = getText(df).trim();
     }
  
