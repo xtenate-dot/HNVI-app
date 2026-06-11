@@ -466,49 +466,9 @@ function setStap(n) {
 function verbergStappen() { document.getElementById('stappen').style.display = 'none'; }
  
 // ══ Claude API ════════════════════════════════════════════════════════════════
-// ── Live Marktplaats prijzen ophalen ─────────────────────────────────────────
+// ── Marktplaats proxy uitgeschakeld (te traag) ───────────────────────────────
 async function haalMarktplaatsPrijzen(zoekterm) {
-  try {
-    // Gebruik allOrigins CORS proxy om Marktplaats intern API te bereiken
-    const mp_url = `https://www.marktplaats.nl/lrp/api/search?query=${encodeURIComponent(zoekterm)}&limit=20&offset=0&sortBy=SORT_INDEX&sortOrder=DECREASING`;
-    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(mp_url)}`;
-    
-    const resp = await fetch(proxy, {signal: AbortSignal.timeout(3000)});
-    if (!resp.ok) return null;
-    
-    const data = await resp.json();
-    const parsed = JSON.parse(data.contents);
-    
-    if (!parsed.listings || parsed.listings.length === 0) return null;
-    
-    // Haal prijzen op
-    const prijzen = parsed.listings
-      .filter(l => l.priceInfo && l.priceInfo.priceCents)
-      .map(l => ({
-        titel: l.title,
-        prijs: l.priceInfo.priceCents / 100,
-        type: l.priceInfo.priceType
-      }))
-      .filter(l => l.prijs > 10 && l.prijs < 1000000)
-      .sort((a, b) => a.prijs - b.prijs);
- 
-    if (prijzen.length === 0) return null;
- 
-    const bedragen = prijzen.map(p => p.prijs);
-    const laag = bedragen[0];
-    const hoog = bedragen[bedragen.length - 1];
-    const gemiddeld = Math.round(bedragen.reduce((a, b) => a + b, 0) / bedragen.length);
-    const mediaan = bedragen[Math.floor(bedragen.length / 2)];
- 
-    return {
-      laag, gemiddeld: mediaan, hoog,
-      aantal: prijzen.length,
-      voorbeelden: prijzen.slice(0, 3).map(p => `€${p.prijs} - ${p.titel.slice(0,40)}`).join(', ')
-    };
-  } catch(e) {
-    console.log('MP API fout:', e.message);
-    return null;
-  }
+  return null;
 }
  
 // ── Echte prijzen ophalen via meerdere bronnen ────────────────────────────────
@@ -679,80 +639,56 @@ async function analyseer(kavelIdx) {
     imgs.forEach(img=>s1content.push({type:"image",source:{type:"base64",media_type:img.mediaType,data:img.base64}}));
     s1content.push({type:"text",text:url?`Haal kavel op van: ${url}${extra?'\nExtra: '+extra:''}`:`Analyseer kavel.${extra?'\n'+extra:''}`});
     const d1 = await callClaude(s1sys, s1content, null, 300);
-    const kavel = parseJSON(getText(d1)) || {titel:extra||'Onbekend',huidig_bod:null,beschrijving:extra};
+    // Haal productnaam uit URL als fallback
+    function naamUitUrl(u) {
+      try {
+        const deel = u.split('/veiling-kavel/')[1] || '';
+        const slug = deel.split('/')[0].split('?')[0];
+        return slug.replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase()).slice(0,80);
+      } catch(e) { return ''; }
+    }
+    const urlNaam = url ? naamUitUrl(url) : '';
+    const kavelRaw = parseJSON(getText(d1));
+    const kavel = kavelRaw || {
+      titel: extra || urlNaam || 'Onbekend product',
+      huidig_bod: null,
+      beschrijving: extra || urlNaam
+    };
+    // Als titel nog steeds onbekend is maar URL beschikbaar, gebruik URL naam
+    if ((!kavel.titel || kavel.titel === 'Onbekend') && urlNaam) {
+      kavel.titel = urlNaam;
+    }
  
     // Handmatig bod override
     const handBod = bodStr ? parseFloat(bodStr.replace(',','.')) : null;
     const bod = handBod || (kavel.huidig_bod ? parseFloat(String(kavel.huidig_bod).replace(/[^0-9.]/g,'')) : null);
  
-    // Stap 2: live 2e hands prijzen via websearch
+    // Stap 2: marktprijzen ophalen
     setStap(2);
     const zoekterm = kavel.titel || extra || 'product';
  
-    const s2sys = `Je bent een scherpe inkoopexpert. Zoek de LAAGSTE HUIDIGE prijzen voor: "${zoekterm}".
- 
-Voer deze zoekopdrachten UIT EN RAPPORTEER ALLE GEVONDEN PRIJZEN:
- 
-ZOEKOPDRACHT 1: "${zoekterm} kopen"
-→ Noteer ELKE prijs die je vindt, van laag naar hoog
-→ Vermeld bij elke prijs de winkel
- 
-ZOEKOPDRACHT 2: "${zoekterm} site:marktplaats.nl"  
-→ Noteer de prijzen van de eerste 5-10 advertenties die je ziet
-→ Wat is de laagste actieve vraagprijs?
- 
-ZOEKOPDRACHT 3: "${zoekterm} site:ebay.nl"
-→ Noteer actieve prijzen
- 
-Voor de nieuwprijs geldt:
-- Neem de LAAGSTE prijs die je bij een serieuze Nederlandse webwinkel vindt
-- Coolblue, Bol.com, MediaMarkt, YourMacStore, Amac, Amazon.nl tellen allemaal mee
-- Als Bol.com €1.049 vraagt en Coolblue €1.399, gebruik dan €1.049 — dat is wat je nu kunt kopen
-- Een actieprijs die al weken loopt IS gewoon de huidige marktprijs
- 
-Voor de 2e hands prijs:
-- Gebruik wat je op Marktplaats gevonden hebt
-- NIET een percentage van de nieuwprijs — gebruik echte gevonden advertenties
- 
-Geef ALLEEN dit JSON object:
-{"productnaam":"string","categorie":"string","nieuwprijs":number,"nieuwprijs_bron":"string (noem ALLE prijzen die je gevonden hebt per winkel)","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
- 
-    // Haal LIVE Marktplaats prijzen op
+    // Probeer MP live data
     let mpLive = null;
-    try { mpLive = await haalMarktplaatsPrijzen(zoekterm); } catch(e) { console.log('MP overgeslagen'); }
-    if (mpLive) {
-      console.log('Live MP prijzen:', mpLive);
-    }
+    try { mpLive = await haalMarktplaatsPrijzen(zoekterm); } catch(e) {}
  
-    // Websearch aanroep met live data als context
-    const mpContext = mpLive 
-      ? `\n\nLIVE MARKTPLAATS DATA (gebruik dit voor de marktplaats prijzen):\n- Laagste actieve advertentie: €${mpLive.laag}\n- Mediaan prijs: €${mpLive.gemiddeld}\n- Hoogste prijs: €${mpLive.hoog}\n- Aantal advertenties gevonden: ${mpLive.aantal}\n- Voorbeelden: ${mpLive.voorbeelden}\n\nGebruik deze LIVE data voor de marktplaats prijzen in je JSON. Niet schatten.`
+    const mpContext = mpLive
+      ? `\nLive MP data: laagste €${mpLive.laag}, mediaan €${mpLive.gemiddeld}, hoogste €${mpLive.hoog} (${mpLive.aantal} advertenties)`
       : '';
  
-    const d2raw = await callClaude(s2sys, [{type:"text", text:`Product: ${zoekterm}. Beschrijving: ${kavel.beschrijving||'geen'}.${mpContext}`}], null, 600);
+    const d2raw = await callClaude(
+      'Je bent een prijsexpert. Geef ALLEEN een JSON object, geen tekst ervoor of erna, geen uitleg.',
+      [{type:"text", text:`Geef 2e hands marktprijzen voor: ${zoekterm}.${mpContext}
+ 
+Retourneer UITSLUITEND dit JSON object (vul alle nummers in, geen nulls):
+{"productnaam":"${zoekterm}","categorie":"vul in","nieuwprijs":0,"nieuwprijs_bron":"schatting","marktplaats":{"laag":0,"gemiddeld":0,"hoog":0,"vertrouwen":"middel","tip":"tip","verkooptijd":"1-4 weken","zoekwoorden":["woord"]},"ebay":{"laag":0,"gemiddeld":0,"hoog":0,"vertrouwen":"laag","tip":"tip","verkooptijd":"1-4 weken","keywords":["word"]},"aandachtspunten":["punt"]}`}],
+      null, 500
+    );
+ 
     const allText2 = d2raw.content.map(b => b.type === 'text' ? b.text : '').join('');
-    console.log('Stap 2 raw response:', allText2.substring(0, 500));
+    console.log('Stap 2 raw:', allText2.substring(0, 300));
     let prijzen = parseJSON(allText2);
-    // Zorg dat prijzen altijd een object heeft met de juiste velden
     if (prijzen && !prijzen.marktplaats) prijzen = null;
  
-        if (!prijzen) {
-      // Retry met minimale prompt
-      try {
-        const retryData = await callClaude(
-          'Geef marktprijzen als JSON. Alleen het JSON object, niets anders.',
-          [{type:"text", text:`Marktprijzen voor: ${zoekterm}. Geef JSON: {"productnaam":"...","categorie":"...","nieuwprijs":100,"nieuwprijs_bron":"schatting","marktplaats":{"laag":50,"gemiddeld":75,"hoog":100,"vertrouwen":"laag","tip":"Controleer zelf op Marktplaats","verkooptijd":"onbekend","zoekwoorden":["zoekterm"]},"ebay":{"laag":50,"gemiddeld":75,"hoog":100,"vertrouwen":"laag","tip":"Controleer op eBay","verkooptijd":"onbekend","keywords":["search"]},"aandachtspunten":["Controleer zelf de prijzen"]}`}],
-          null, 400
-        );
-        prijzen = parseJSON(getText(retryData));
-      } catch(e2) {}
-      if (!prijzen) throw new Error('Kon geen marktprijzen ophalen. Probeer opnieuw.');
-    }
- 
-    // Wacht 5 seconden voor rate limit
-    await new Promise(r => setTimeout(r, 5000));
- 
-    await new Promise(r => setTimeout(r, 8000));
     // Stap 3: alleen foto analyse als er foto's zijn
     setStap(3);
     let fotoObs = null;
