@@ -8,7 +8,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="HNVI">
 <meta name="theme-color" content="#1a472a">
-<link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon128.png">
 <title>HNVI Veiling Analyser</title>
 <style>
@@ -474,7 +473,7 @@ async function haalMarktplaatsPrijzen(zoekterm) {
     const mp_url = `https://www.marktplaats.nl/lrp/api/search?query=${encodeURIComponent(zoekterm)}&limit=20&offset=0&sortBy=SORT_INDEX&sortOrder=DECREASING`;
     const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(mp_url)}`;
     
-    const resp = await fetch(proxy, {signal: AbortSignal.timeout(8000)});
+    const resp = await fetch(proxy, {signal: AbortSignal.timeout(3000)});
     if (!resp.ok) return null;
     
     const data = await resp.json();
@@ -719,7 +718,8 @@ Geef ALLEEN dit JSON object:
 {"productnaam":"string","categorie":"string","nieuwprijs":number,"nieuwprijs_bron":"string (noem ALLE prijzen die je gevonden hebt per winkel)","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
  
     // Haal LIVE Marktplaats prijzen op
-    const mpLive = await haalMarktplaatsPrijzen(zoekterm);
+    let mpLive = null;
+    try { mpLive = await haalMarktplaatsPrijzen(zoekterm); } catch(e) { console.log('MP overgeslagen'); }
     if (mpLive) {
       console.log('Live MP prijzen:', mpLive);
     }
@@ -729,8 +729,9 @@ Geef ALLEEN dit JSON object:
       ? `\n\nLIVE MARKTPLAATS DATA (gebruik dit voor de marktplaats prijzen):\n- Laagste actieve advertentie: €${mpLive.laag}\n- Mediaan prijs: €${mpLive.gemiddeld}\n- Hoogste prijs: €${mpLive.hoog}\n- Aantal advertenties gevonden: ${mpLive.aantal}\n- Voorbeelden: ${mpLive.voorbeelden}\n\nGebruik deze LIVE data voor de marktplaats prijzen in je JSON. Niet schatten.`
       : '';
  
-    const d2raw = await callClaude(s2sys, [{type:"text", text:`Product: ${zoekterm}. Beschrijving: ${kavel.beschrijving||'geen'}.${mpContext}`}], null, 400);
+    const d2raw = await callClaude(s2sys, [{type:"text", text:`Product: ${zoekterm}. Beschrijving: ${kavel.beschrijving||'geen'}.${mpContext}`}], null, 600);
     const allText2 = d2raw.content.map(b => b.type === 'text' ? b.text : '').join('');
+    console.log('Stap 2 raw response:', allText2.substring(0, 500));
     let prijzen = parseJSON(allText2);
     // Zorg dat prijzen altijd een object heeft met de juiste velden
     if (prijzen && !prijzen.marktplaats) prijzen = null;
