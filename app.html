@@ -1,4 +1,4 @@
-<!DOCTYPE html=>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
@@ -467,6 +467,51 @@ function setStap(n) {
 function verbergStappen() { document.getElementById('stappen').style.display = 'none'; }
  
 // ══ Claude API ════════════════════════════════════════════════════════════════
+// ── Live Marktplaats prijzen ophalen ─────────────────────────────────────────
+async function haalMarktplaatsPrijzen(zoekterm) {
+  try {
+    // Gebruik allOrigins CORS proxy om Marktplaats intern API te bereiken
+    const mp_url = `https://www.marktplaats.nl/lrp/api/search?query=${encodeURIComponent(zoekterm)}&limit=20&offset=0&sortBy=SORT_INDEX&sortOrder=DECREASING`;
+    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(mp_url)}`;
+    
+    const resp = await fetch(proxy, {signal: AbortSignal.timeout(8000)});
+    if (!resp.ok) return null;
+    
+    const data = await resp.json();
+    const parsed = JSON.parse(data.contents);
+    
+    if (!parsed.listings || parsed.listings.length === 0) return null;
+    
+    // Haal prijzen op
+    const prijzen = parsed.listings
+      .filter(l => l.priceInfo && l.priceInfo.priceCents)
+      .map(l => ({
+        titel: l.title,
+        prijs: l.priceInfo.priceCents / 100,
+        type: l.priceInfo.priceType
+      }))
+      .filter(l => l.prijs > 10 && l.prijs < 1000000)
+      .sort((a, b) => a.prijs - b.prijs);
+ 
+    if (prijzen.length === 0) return null;
+ 
+    const bedragen = prijzen.map(p => p.prijs);
+    const laag = bedragen[0];
+    const hoog = bedragen[bedragen.length - 1];
+    const gemiddeld = Math.round(bedragen.reduce((a, b) => a + b, 0) / bedragen.length);
+    const mediaan = bedragen[Math.floor(bedragen.length / 2)];
+ 
+    return {
+      laag, gemiddeld: mediaan, hoog,
+      aantal: prijzen.length,
+      voorbeelden: prijzen.slice(0, 3).map(p => `€${p.prijs} - ${p.titel.slice(0,40)}`).join(', ')
+    };
+  } catch(e) {
+    console.log('MP API fout:', e.message);
+    return null;
+  }
+}
+ 
 // ── Echte prijzen ophalen via meerdere bronnen ────────────────────────────────
 async function zoekEchtePrijzen(product) {
   const resultaten = [];
@@ -648,41 +693,46 @@ Geef ALLEEN dit JSON object, niets anders:
     setStap(2);
     const zoekterm = kavel.titel || extra || 'product';
  
-    const s2sys = `Je bent een inkoopexpert voor 2e hands handel in Nederland. Zoek prijzen voor: "${zoekterm}".
+    const s2sys = `Je bent een scherpe inkoopexpert. Zoek de LAAGSTE HUIDIGE prijzen voor: "${zoekterm}".
  
-Voer deze 4 zoekacties uit:
+Voer deze zoekopdrachten UIT EN RAPPORTEER ALLE GEVONDEN PRIJZEN:
  
-STAP 1 - Zoek: "${zoekterm} site:marktplaats.nl"
-→ Bekijk minimaal 5 actieve advertenties
-→ Noteer de laagste, gemiddelde en hoogste vraagprijs
-→ Dit zijn je 2e hands Marktplaats prijzen
+ZOEKOPDRACHT 1: "${zoekterm} kopen"
+→ Noteer ELKE prijs die je vindt, van laag naar hoog
+→ Vermeld bij elke prijs de winkel
  
-STAP 2 - Zoek: "${zoekterm} site:ebay.nl verkocht"
-→ Bekijk verkochte items (niet alleen aangeboden)
-→ Noteer de laagste, gemiddelde en hoogste verkoopprijs
-→ Dit zijn je eBay prijzen
+ZOEKOPDRACHT 2: "${zoekterm} site:marktplaats.nl"  
+→ Noteer de prijzen van de eerste 5-10 advertenties die je ziet
+→ Wat is de laagste actieve vraagprijs?
  
-STAP 3 - Zoek: "${zoekterm} kopen prijs"
-→ Zoek de NORMALE winkelprijs bij meerdere winkels (bol.com, coolblue, mediamarkt etc.)
-→ Gebruik het GEMIDDELDE van meerdere winkels als nieuwprijs
-→ Negeer tijdelijke aanbiedingen en uitverkoop — gebruik de normale prijs
-→ Als één winkel een tijdelijke actie heeft maar alle andere winkels hogere prijzen tonen, gebruik dan de normale prijs
+ZOEKOPDRACHT 3: "${zoekterm} site:ebay.nl"
+→ Noteer actieve prijzen
  
-STAP 4 - Zoek: "${zoekterm} refurbished tweedehands"
-→ Geeft extra context voor 2e hands markt
+Voor de nieuwprijs geldt:
+- Neem de LAAGSTE prijs die je bij een serieuze Nederlandse webwinkel vindt
+- Coolblue, Bol.com, MediaMarkt, YourMacStore, Amac, Amazon.nl tellen allemaal mee
+- Als Bol.com €1.049 vraagt en Coolblue €1.399, gebruik dan €1.049 — dat is wat je nu kunt kopen
+- Een actieprijs die al weken loopt IS gewoon de huidige marktprijs
  
-REGELS:
-- Nieuwprijs = normale winkelprijs bij meerdere winkels, NIET een tijdelijke actieprijs
-- Marktplaats prijzen = direct gebaseerd op wat je in stap 1 gevonden hebt
-- eBay prijzen = direct gebaseerd op wat je in stap 2 gevonden hebt
-- 2e hands prijzen moeten ALTIJD lager zijn dan de nieuwprijs
+Voor de 2e hands prijs:
+- Gebruik wat je op Marktplaats gevonden hebt
+- NIET een percentage van de nieuwprijs — gebruik echte gevonden advertenties
  
-Geef ALLEEN dit JSON object, geen tekst ervoor of erna:
-{"productnaam":"string","categorie":"string","nieuwprijs":number,"nieuwprijs_bron":"string (vermeld welke winkels je gevonden hebt en wat hun prijzen zijn)","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
+Geef ALLEEN dit JSON object:
+{"productnaam":"string","categorie":"string","nieuwprijs":number,"nieuwprijs_bron":"string (noem ALLE prijzen die je gevonden hebt per winkel)","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
  
-    // Websearch aanroep - verwerk alle content blocks inclusief tool results
-    const d2raw = await callClaude(s2sys, [{type:"text", text:`Zoek actuele prijzen voor: ${zoekterm}. Kavel beschrijving: ${kavel.beschrijving||'geen'}. Zoek zowel huidige winkelprijs ALS 2e hands Marktplaats/eBay prijzen.`}], tools, 2000);
-    // Pak alle tekst uit de response inclusief na tool gebruik
+    // Haal LIVE Marktplaats prijzen op
+    const mpLive = await haalMarktplaatsPrijzen(zoekterm);
+    if (mpLive) {
+      console.log('Live MP prijzen:', mpLive);
+    }
+ 
+    // Websearch aanroep met live data als context
+    const mpContext = mpLive 
+      ? `\n\nLIVE MARKTPLAATS DATA (gebruik dit voor de marktplaats prijzen):\n- Laagste actieve advertentie: €${mpLive.laag}\n- Mediaan prijs: €${mpLive.gemiddeld}\n- Hoogste prijs: €${mpLive.hoog}\n- Aantal advertenties gevonden: ${mpLive.aantal}\n- Voorbeelden: ${mpLive.voorbeelden}\n\nGebruik deze LIVE data voor de marktplaats prijzen in je JSON. Niet schatten.`
+      : '';
+ 
+    const d2raw = await callClaude(s2sys, [{type:"text", text:`Zoek actuele prijzen voor: ${zoekterm}. Kavel beschrijving: ${kavel.beschrijving||'geen'}.${mpContext}`}], tools, 2000);
     const allText2 = d2raw.content.map(b => b.type === 'text' ? b.text : '').join('');
     const prijzen = parseJSON(allText2);
  
