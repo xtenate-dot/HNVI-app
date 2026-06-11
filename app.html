@@ -736,15 +736,16 @@ Geef ALLEEN dit JSON object:
     if (prijzen && !prijzen.marktplaats) prijzen = null;
  
         if (!prijzen) {
-      // Probeer opnieuw met een nog simpelere prompt
-      const retryTxt = await callClaude(
-        'Geef ALLEEN een JSON object met 2e hands Marktplaats en eBay prijzen. Geen tekst, alleen JSON.',
-        [{type:"text",text:`Geef marktprijzen JSON voor: ${zoekterm}. Schat realistisch voor Nederland.\n{"productnaam":"...","categorie":"...","nieuwprijs":0,"nieuwprijs_bron":"schatting","marktplaats":{"laag":0,"gemiddeld":0,"hoog":0,"vertrouwen":"laag","tip":"...","verkooptijd":"...","zoekwoorden":[]},"ebay":{"laag":0,"gemiddeld":0,"hoog":0,"vertrouwen":"laag","tip":"...","verkooptijd":"...","keywords":[]},"aandachtspunten":[]}`}],
-        null, 600
-      );
-      const prijzen2 = parseJSON(getText(retryTxt));
-      if (!prijzen2) throw new Error("Kon geen marktprijzen ophalen. Probeer een duidelijkere kavelbeschrijving.");
-      if (prijzen2) Object.assign(prijzen, prijzen2); else throw new Error('Kon geen marktprijzen ophalen. Probeer opnieuw.');
+      // Retry met minimale prompt
+      try {
+        const retryData = await callClaude(
+          'Geef marktprijzen als JSON. Alleen het JSON object, niets anders.',
+          [{type:"text", text:`Marktprijzen voor: ${zoekterm}. Geef JSON: {"productnaam":"...","categorie":"...","nieuwprijs":100,"nieuwprijs_bron":"schatting","marktplaats":{"laag":50,"gemiddeld":75,"hoog":100,"vertrouwen":"laag","tip":"Controleer zelf op Marktplaats","verkooptijd":"onbekend","zoekwoorden":["zoekterm"]},"ebay":{"laag":50,"gemiddeld":75,"hoog":100,"vertrouwen":"laag","tip":"Controleer op eBay","verkooptijd":"onbekend","keywords":["search"]},"aandachtspunten":["Controleer zelf de prijzen"]}`}],
+          null, 400
+        );
+        prijzen = parseJSON(getText(retryData));
+      } catch(e2) {}
+      if (!prijzen) throw new Error('Kon geen marktprijzen ophalen. Probeer opnieuw.');
     }
  
     // Wacht 5 seconden voor rate limit
