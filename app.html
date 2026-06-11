@@ -648,17 +648,37 @@ Geef ALLEEN dit JSON object, niets anders:
     setStap(2);
     const zoekterm = kavel.titel || extra || 'product';
  
-    const s2sys = `Je bent een expert in Nederlandse 2e hands marktprijzen. Zoek actuele prijzen op voor: "${zoekterm}".
+    const s2sys = `Je bent een inkoopexpert voor 2e hands handel in Nederland. Zoek prijzen voor: "${zoekterm}".
  
-Gebruik web_search met deze SPECIFIEKE zoekopdrachten (voer ze allemaal uit):
-1. "${zoekterm} marktplaats.nl" - voor huidige 2e hands advertenties
-2. "${zoekterm} kopen prijs 2024 2025" - voor huidige winkelprijs (NIET de oude adviesprijs)
-3. "${zoekterm} ebay.nl verkocht" - voor eBay verkopen
+Voer deze 4 zoekacties uit:
  
-BELANGRIJK voor nieuwprijs: zoek de HUIDIGE verkoopprijs in winkels, niet de originele adviesprijs van jaren geleden. Producten worden vaak met grote kortingen verkocht.
+STAP 1 - Zoek: "${zoekterm} site:marktplaats.nl"
+→ Bekijk minimaal 5 actieve advertenties
+→ Noteer de laagste, gemiddelde en hoogste vraagprijs
+→ Dit zijn je 2e hands Marktplaats prijzen
  
-Na het zoeken geef je ALLEEN dit JSON object, geen tekst ervoor of erna:
-{"productnaam":"string","categorie":"string","nieuwprijs":number_or_null,"nieuwprijs_bron":"string (vermeld de winkel/site waar je de prijs vond)","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
+STAP 2 - Zoek: "${zoekterm} site:ebay.nl verkocht"
+→ Bekijk verkochte items (niet alleen aangeboden)
+→ Noteer de laagste, gemiddelde en hoogste verkoopprijs
+→ Dit zijn je eBay prijzen
+ 
+STAP 3 - Zoek: "${zoekterm} kopen prijs"
+→ Zoek de NORMALE winkelprijs bij meerdere winkels (bol.com, coolblue, mediamarkt etc.)
+→ Gebruik het GEMIDDELDE van meerdere winkels als nieuwprijs
+→ Negeer tijdelijke aanbiedingen en uitverkoop — gebruik de normale prijs
+→ Als een product overal voor €1.049 staat maar één winkel heeft hem voor €749 actie, gebruik dan €1.049
+ 
+STAP 4 - Zoek: "${zoekterm} refurbished tweedehands"
+→ Geeft extra context voor 2e hands markt
+ 
+REGELS:
+- Nieuwprijs = normale winkelprijs bij meerdere winkels, NIET een tijdelijke actieprijs
+- Marktplaats prijzen = direct gebaseerd op wat je in stap 1 gevonden hebt
+- eBay prijzen = direct gebaseerd op wat je in stap 2 gevonden hebt
+- 2e hands prijzen moeten ALTIJD lager zijn dan de nieuwprijs
+ 
+Geef ALLEEN dit JSON object, geen tekst ervoor of erna:
+{"productnaam":"string","categorie":"string","nieuwprijs":number,"nieuwprijs_bron":"string (vermeld welke winkels je gevonden hebt en wat hun prijzen zijn)","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
  
     // Websearch aanroep - verwerk alle content blocks inclusief tool results
     const d2raw = await callClaude(s2sys, [{type:"text", text:`Zoek actuele prijzen voor: ${zoekterm}. Kavel beschrijving: ${kavel.beschrijving||'geen'}. Zoek zowel huidige winkelprijs ALS 2e hands Marktplaats/eBay prijzen.`}], tools, 2000);
