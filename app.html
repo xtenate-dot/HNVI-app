@@ -1239,9 +1239,11 @@ function toonMsg(id,msg) {
   renderOverzicht();
 })();
  
-// PWA Service Worker registreren
+// Service worker uitgeschakeld
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    regs.forEach(reg => reg.unregister());
+  });
 }
 </script>
 </body>
