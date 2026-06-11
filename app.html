@@ -751,6 +751,7 @@ Geef ALLEEN dit JSON object:
     // Wacht 5 seconden voor rate limit
     await new Promise(r => setTimeout(r, 5000));
  
+    await new Promise(r => setTimeout(r, 8000));
     // Stap 3: advies + foto analyse
     setStap(3);
     let fotoObs = null;
