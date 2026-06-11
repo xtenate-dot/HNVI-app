@@ -648,18 +648,20 @@ Geef ALLEEN dit JSON object, niets anders:
     setStap(2);
     const zoekterm = kavel.titel || extra || 'product';
  
-    const s2sys = `Je bent een Nederlandse veilinghandelaar. Zoek LIVE de huidige 2e hands verkoopprijzen op voor: "${zoekterm}".
+    const s2sys = `Je bent een expert in Nederlandse 2e hands marktprijzen. Zoek actuele prijzen op voor: "${zoekterm}".
  
-Gebruik web_search om te zoeken op:
-1. marktplaats.nl ${zoekterm} - voor Nederlandse 2e hands prijzen
-2. ebay.nl ${zoekterm} - voor eBay prijzen
+Gebruik web_search met deze SPECIFIEKE zoekopdrachten (voer ze allemaal uit):
+1. "${zoekterm} marktplaats.nl" - voor huidige 2e hands advertenties
+2. "${zoekterm} kopen prijs 2024 2025" - voor huidige winkelprijs (NIET de oude adviesprijs)
+3. "${zoekterm} ebay.nl verkocht" - voor eBay verkopen
  
-Kijk naar ACTIEVE advertenties en VERKOCHTE items.
-Geef ALLEEN dit JSON object terug, geen tekst ervoor of erna:
-{"productnaam":"string","categorie":"string","nieuwprijs":number_or_null,"nieuwprijs_bron":"string","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
+BELANGRIJK voor nieuwprijs: zoek de HUIDIGE verkoopprijs in winkels, niet de originele adviesprijs van jaren geleden. Producten worden vaak met grote kortingen verkocht.
+ 
+Na het zoeken geef je ALLEEN dit JSON object, geen tekst ervoor of erna:
+{"productnaam":"string","categorie":"string","nieuwprijs":number_or_null,"nieuwprijs_bron":"string (vermeld de winkel/site waar je de prijs vond)","marktplaats":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","zoekwoorden":["string"]},"ebay":{"laag":number,"gemiddeld":number,"hoog":number,"vertrouwen":"hoog|middel|laag","tip":"string","verkooptijd":"string","keywords":["string"]},"aandachtspunten":["string"]}`;
  
     // Websearch aanroep - verwerk alle content blocks inclusief tool results
-    const d2raw = await callClaude(s2sys, [{type:"text", text:`Zoek live Marktplaats en eBay prijzen voor: ${zoekterm}. Beschrijving: ${kavel.beschrijving||'geen'}`}], tools, 1500);
+    const d2raw = await callClaude(s2sys, [{type:"text", text:`Zoek actuele prijzen voor: ${zoekterm}. Kavel beschrijving: ${kavel.beschrijving||'geen'}. Zoek zowel huidige winkelprijs ALS 2e hands Marktplaats/eBay prijzen.`}], tools, 2000);
     // Pak alle tekst uit de response inclusief na tool gebruik
     const allText2 = d2raw.content.map(b => b.type === 'text' ? b.text : '').join('');
     const prijzen = parseJSON(allText2);
