@@ -7,15 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="HNVI">
 <meta name="theme-color" content="#1a472a">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon128.png">
 <title>HNVI Veiling Analyser</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--brand:#1a472a;--brand-light:#e8f5e9;--accent:#f4a261;--bg:#f5f7f4;--surface:#fff;--border:#dde3d8;--text:#1c2b1e;--muted:#6b7c6e}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
- 
-/* Header */
 header{background:var(--brand);color:white;padding:14px 22px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
 .logo{width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 header h1{font-size:16px;font-weight:700}
@@ -25,65 +21,46 @@ header p{font-size:11px;opacity:.65;margin-top:1px}
 .hbtn-ghost{background:rgba(255,255,255,.15);color:white}
 .hbtn-ghost:hover{background:rgba(255,255,255,.25)}
 .hbtn-accent{background:var(--accent);color:white}
-.hbtn-accent:hover{background:#e8924f}
- 
-/* API key balk */
 .apikey-bar{background:#fff8e1;border-bottom:1px solid #ffe082;padding:10px 22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px}
 .apikey-bar input{flex:1;min-width:200px;padding:7px 10px;border:1px solid #ffe082;border-radius:7px;font-size:13px;font-family:monospace;outline:none}
 .apikey-bar .save-btn{padding:7px 14px;background:var(--brand);color:white;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
 .apikey-ok{background:#e8f5e9;border-bottom:1px solid #c8e6c9;padding:8px 22px;font-size:13px;color:#1a6b35;display:flex;align-items:center;gap:8px}
- 
-/* Tabs */
 .tabs{display:flex;background:white;border-bottom:1px solid var(--border);padding:0 18px;gap:4px;overflow-x:auto}
 .tab{padding:11px 15px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;color:var(--muted);white-space:nowrap;transition:all .15s}
 .tab.active{color:var(--brand);border-bottom-color:var(--brand)}
 .tab-badge{background:var(--accent);color:white;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;margin-left:4px}
- 
+.sel-balk{background:#fff8e1;border-bottom:1px solid #ffe082;padding:9px 18px;display:none;align-items:center;gap:10px;flex-wrap:wrap}
+.sel-balk span{font-size:13px;font-weight:600;color:#7a5c00}
+.sel-del-btn{padding:7px 13px;background:#e53935;color:white;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer}
+.sel-action{padding:6px 12px;background:transparent;color:#7a5c00;border:1px solid #ffe082;border-radius:7px;font-size:13px;cursor:pointer}
 .main{max-width:960px;margin:0 auto;padding:20px 18px}
 .panel{display:none}.panel.active{display:block}
- 
-/* Cards */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px}
 .card-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px}
- 
-/* Form */
-input[type=text],input[type=number],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);font-family:inherit;outline:none;transition:border-color .15s}
+input[type=text],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--bg);color:var(--text);font-family:inherit;outline:none;transition:border-color .15s}
 input:focus,textarea:focus{border-color:var(--brand);background:white}
 textarea{resize:vertical;min-height:75px}
 label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;margin-top:12px}
 label:first-child{margin-top:0}
 .hint{font-size:12px;color:var(--muted);margin-bottom:6px}
- 
-/* Buttons */
 .btn-primary{width:100%;padding:13px;background:var(--brand);color:white;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;transition:background .15s}
 .btn-primary:hover{background:#143d21}
 .btn-primary:disabled{background:#9ab39e;cursor:not-allowed}
 .btn-sm{background:var(--brand-light);color:var(--brand);border:none;border-radius:7px;font-size:12px;font-weight:600;padding:5px 10px;cursor:pointer}
 .btn-sm:hover{background:#c8e6c9}
 .btn-danger{background:#fde8e8;color:#c62828;border:none;border-radius:7px;font-size:12px;padding:5px 8px;cursor:pointer}
- 
-/* Bod type */
 .bod-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 .bod-btn{padding:10px;border-radius:8px;border:1.5px solid var(--border);background:white;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
 .bod-btn.active{background:var(--brand);color:white;border-color:var(--brand)}
- 
-/* Spinner */
 .spinner{width:17px;height:17px;border:2.5px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .65s linear infinite;flex-shrink:0}
-.spinner-brand{border-color:rgba(26,71,42,.15);border-top-color:var(--brand)}
 @keyframes spin{to{transform:rotate(360deg)}}
- 
-/* Steps */
 .steps{display:flex;flex-direction:column;gap:6px;margin-top:14px}
 .step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);padding:9px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
 .step.active{color:var(--brand);background:var(--brand-light);border-color:#b2dfbe;font-weight:600}
 .step.done{color:#1a6b35}
- 
-/* Messages */
+.step-spin{width:14px;height:14px;border:2px solid rgba(26,71,42,.2);border-top-color:var(--brand);border-radius:50%;animation:spin .65s linear infinite;flex-shrink:0}
 .msg{padding:11px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none;line-height:1.5}
 .msg.err{background:#fde8e8;color:#8b1a1a}
-.msg.ok{background:var(--brand-light);color:#1a6b35}
- 
-/* Verdict */
 .verdict{border-radius:12px;padding:16px 18px;margin-bottom:16px;border:1px solid}
 .v-kopen{background:#dcf5e4;border-color:#a8dbb9}
 .v-twijfel{background:#fff8e1;border-color:#ffe082}
@@ -91,15 +68,11 @@ label:first-child{margin-top:0}
 .verdict h3{font-size:16px;font-weight:700;margin-bottom:5px}
 .v-kopen h3{color:#1a6b35}.v-twijfel h3{color:#7a5c00}.v-skip h3{color:#8b1a1a}
 .verdict p{font-size:14px;line-height:1.6}
- 
-/* Costs */
 .costs-box{background:#fffbf0;border:1px solid #ffe082;border-radius:11px;padding:15px;margin-bottom:16px}
 .costs-box h4{font-size:11px;font-weight:700;color:#7a5c00;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .c-row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;border-bottom:1px solid #fff3c444}
 .c-row:last-child{border:none;font-weight:700;font-size:15px}
 .c-pos{color:#1a6b35;font-weight:700}.c-neg{color:#e63946;font-weight:700}
- 
-/* Price grid */
 .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
 .p-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px}
 .p-platform{font-size:14px;font-weight:700;margin-bottom:10px}
@@ -113,31 +86,23 @@ label:first-child{margin-top:0}
 .b-high{background:#dcf5e4;color:#1a6b35}.b-mid{background:#fff3cd;color:#856404}.b-low{background:#fde8e8;color:#8b1a1a}
 .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
 .tag{background:#f0f4f0;font-size:12px;padding:2px 8px;border-radius:20px}
- 
-/* ROI */
 .roi-wrap{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px;margin-bottom:16px}
 .roi-bar{height:9px;background:var(--border);border-radius:99px;overflow:hidden;margin:7px 0 5px}
 .roi-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#f4a261,#2d6a4f)}
 .roi-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
- 
-/* Detail grid */
 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
 .detail-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px}
 .detail-card ul{list-style:none}
 .detail-card ul li{font-size:13px;padding:5px 0;border-bottom:1px solid var(--bg);display:flex;gap:7px;line-height:1.4}
 .detail-card ul li:last-child{border:none}
-.detail-card ul li::before{content:'→';color:var(--brand);font-weight:700;flex-shrink:0}
- 
-/* Overzicht */
+.detail-card ul li::before{content:'-->';color:var(--brand);font-weight:700;flex-shrink:0}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:center}
 .stat-num{font-size:22px;font-weight:800}
 .stat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
 .stats-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
- 
 .filter-bar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
 .filter-btn{padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);background:white;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
 .filter-btn.active{background:var(--brand);color:white;border-color:var(--brand)}
- 
 .kavel-list{display:flex;flex-direction:column;gap:10px}
 .kavel-row{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:12px 14px;display:grid;grid-template-columns:auto auto 1fr auto;gap:10px;align-items:center;transition:border-color .15s}
 .kavel-row:hover{border-color:#b2dfbe}
@@ -146,7 +111,6 @@ label:first-child{margin-top:0}
 .kavel-checkbox{width:18px;height:18px;accent-color:var(--brand);cursor:pointer}
 .kavel-row.geselecteerd{background:#e8f5e9;border-color:#81c784}
 .kavel-num{font-size:11px;font-weight:700;color:var(--muted);width:20px}
-.kavel-main{}
 .kavel-titel{font-size:14px;font-weight:700;margin-bottom:3px;line-height:1.3}
 .kavel-meta{font-size:12px;color:var(--muted);margin-bottom:6px}
 .kavel-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
@@ -161,20 +125,11 @@ label:first-child{margin-top:0}
 .s-klaar{background:#43a047}.s-twijfel{background:#fb8c00}.s-skip{background:#e53935}.s-wacht{background:#9e9e9e}
 .kavel-acties{display:flex;gap:5px;align-items:center}
 .kavel-reden{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px}
- 
-/* Selectie balk */
-.sel-balk{background:#fff8e1;border-bottom:1px solid #ffe082;padding:9px 18px;display:none;align-items:center;gap:10px;flex-wrap:wrap}
-.sel-balk span{font-size:13px;font-weight:600;color:#7a5c00}
-.sel-del-btn{padding:7px 13px;background:#e53935;color:white;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer}
-.sel-action{padding:6px 12px;background:transparent;color:#7a5c00;border:1px solid #ffe082;border-radius:7px;font-size:13px;cursor:pointer}
- 
-/* Lege staat */
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--brand);cursor:pointer;margin-bottom:16px;padding:7px 11px;background:var(--brand-light);border-radius:8px;border:none}
 .empty{text-align:center;padding:48px 20px;color:var(--muted)}
 .empty-icon{font-size:48px;margin-bottom:14px}
 .empty h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
 .empty p{font-size:14px;line-height:1.6;max-width:400px;margin:0 auto 18px}
- 
-/* Upload */
 .upload-zone{border:2px dashed var(--border);border-radius:10px;padding:18px;text-align:center;cursor:pointer;position:relative;transition:all .15s;background:var(--bg)}
 .upload-zone:hover,.upload-zone.drag{border-color:var(--brand);background:var(--brand-light)}
 .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
@@ -183,62 +138,56 @@ label:first-child{margin-top:0}
 .prev{position:relative;width:72px;height:72px}
 .prev img{width:72px;height:72px;object-fit:cover;border-radius:7px;border:1px solid var(--border);display:block}
 .prev-del{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#e63946;color:white;border:none;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
- 
-/* Back btn */
-.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--brand);cursor:pointer;margin-bottom:16px;padding:7px 11px;background:var(--brand-light);border-radius:8px;border:none}
- 
 @media(max-width:600px){
   .price-grid,.detail-grid{grid-template-columns:1fr}
   .kavel-row{grid-template-columns:auto auto 1fr;gap:7px}
-  .kavel-acties{grid-column:1/-1;flex-direction:row;flex-wrap:wrap}
+  .kavel-acties{grid-column:1/-1;flex-wrap:wrap}
   header{padding:12px 16px}
-  .hbtn span{display:none}
 }
 </style>
 </head>
 <body>
- 
+
 <div id="apikey-bar" class="apikey-bar" style="display:none">
-  <span>🔑 <strong>API Key vereist</strong> — haal op via <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--brand)">console.anthropic.com</a></span>
+  <span>&#128273; <strong>API Key vereist</strong> &mdash; haal op via <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:var(--brand)">console.anthropic.com</a></span>
   <input type="password" id="apikey-input" placeholder="sk-ant-..." />
   <button class="save-btn" onclick="slaApiKeyOp()">Opslaan</button>
 </div>
 <div id="apikey-ok" class="apikey-ok" style="display:none">
-  ✅ API Key ingesteld — <a href="#" onclick="resetApiKey()" style="color:var(--brand);margin-left:8px">Wijzigen</a>
+  &#9989; API Key ingesteld &mdash; <a href="#" onclick="resetApiKey()" style="color:var(--brand);margin-left:8px">Wijzigen</a>
 </div>
- 
+
 <header>
-  <div class="logo">🔨</div>
+  <div class="logo">&#128296;</div>
   <div>
     <h1>HNVI Veiling Analyser</h1>
-    <p>Kavels analyseren · Prijzen opzoeken · Marge berekenen</p>
+    <p>Kavels analyseren &middot; Prijzen opzoeken &middot; Marge berekenen</p>
   </div>
   <div class="hdr-r">
-    <button class="hbtn hbtn-ghost" id="selecteer-btn" onclick="toggleSelectie()">☑ <span>Selecteren</span></button>
-    <button class="hbtn hbtn-accent" onclick="switchTab('analyse')">+ <span>Kavel toevoegen</span></button>
+    <button class="hbtn hbtn-ghost" id="selecteer-btn" onclick="toggleSelectie()">&#9745; Selecteren</button>
+    <button class="hbtn hbtn-accent" onclick="switchTab('analyse')">+ Kavel toevoegen</button>
   </div>
 </header>
- 
+
 <div class="sel-balk" id="sel-balk">
   <span id="sel-aantal">0 geselecteerd</span>
-  <button class="sel-del-btn" onclick="verwijderSelectie()">🗑 Verwijder</button>
-  <button class="sel-action" onclick="allesAanvinken()">✓ Alles</button>
-  <button class="sel-action" onclick="allesUitvinken()">✗ Geen</button>
+  <button class="sel-del-btn" onclick="verwijderSelectie()">&#128465; Verwijder</button>
+  <button class="sel-action" onclick="allesAanvinken()">&#10003; Alles</button>
+  <button class="sel-action" onclick="allesUitvinken()">&#10007; Geen</button>
   <button class="sel-action" style="margin-left:auto" onclick="toggleSelectie()">Annuleren</button>
 </div>
- 
+
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('overzicht')">📋 Overzicht <span class="tab-badge" id="badge">0</span></div>
-  <div class="tab" onclick="switchTab('analyse')">🔍 Kavel analyseren</div>
-  <div class="tab" onclick="switchTab('handleiding')">📖 Handleiding</div>
+  <div class="tab active" onclick="switchTab('overzicht')">&#128203; Overzicht <span class="tab-badge" id="badge">0</span></div>
+  <div class="tab" onclick="switchTab('analyse')">&#128269; Kavel analyseren</div>
+  <div class="tab" onclick="switchTab('handleiding')">&#128214; Handleiding</div>
 </div>
- 
+
 <div class="main">
- 
-<!-- OVERZICHT -->
+
 <div id="tab-overzicht" class="panel active">
   <div id="ov-leeg" class="empty" style="display:none">
-    <div class="empty-icon">🏷️</div>
+    <div class="empty-icon">&#127991;</div>
     <h3>Nog geen kavels</h3>
     <p>Ga naar "Kavel analyseren" en voeg je eerste kavel toe.</p>
     <button class="btn-sm" onclick="switchTab('analyse')">+ Kavel toevoegen</button>
@@ -246,205 +195,214 @@ label:first-child{margin-top:0}
   <div id="ov-inhoud" style="display:none">
     <div class="stats-row" id="stats-row"></div>
     <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-      <button class="btn-sm" onclick="analyseAlles()">⚡ Analyseer alles</button>
-      <button class="btn-sm" style="background:white;border:1px solid var(--border);color:var(--muted)" onclick="switchTab('analyse')">+ Toevoegen</button>
+      <button class="btn-sm" onclick="switchTab('analyse')">+ Toevoegen</button>
     </div>
     <div class="filter-bar">
       <button class="filter-btn active" onclick="setFilter('alles',this)">Alles</button>
-      <button class="filter-btn" onclick="setFilter('kopen',this)">✓ Aanraders</button>
+      <button class="filter-btn" onclick="setFilter('kopen',this)">&#10003; Aanraders</button>
       <button class="filter-btn" onclick="setFilter('twijfel',this)">~ Twijfel</button>
-      <button class="filter-btn" onclick="setFilter('skip',this)">✗ Skip</button>
-      <button class="filter-btn" onclick="setFilter('wacht',this)">⏳ Niet geanalyseerd</button>
-      <button class="filter-btn" onclick="setFilter('eigen',this)">🙋 Mijn kavels</button>
+      <button class="filter-btn" onclick="setFilter('skip',this)">&#10007; Skip</button>
+      <button class="filter-btn" onclick="setFilter('wacht',this)">&#8987; Niet geanalyseerd</button>
+      <button class="filter-btn" onclick="setFilter('eigen',this)">&#128587; Mijn kavels</button>
     </div>
     <div class="kavel-list" id="kavel-list"></div>
   </div>
 </div>
- 
-<!-- ANALYSE -->
+
 <div id="tab-analyse" class="panel">
   <div id="analyse-result" style="display:none"></div>
   <div class="card" id="analyse-form">
-    <div class="card-title">🔗 Kavel toevoegen</div>
+    <div class="card-title">&#128279; Kavel toevoegen</div>
     <label>HNVI kavel URL</label>
     <input type="text" id="kavel-url" placeholder="https://www.hnvi.nl/veiling-kavel/..." />
-    <label style="margin-top:14px">💶 Bod (€)</label>
+    <label style="margin-top:14px">&#128182; Bod (euro)</label>
     <div class="bod-row">
-      <button class="bod-btn active" id="bod-ander" onclick="setBodType('ander',this)">👤 Huidig bod (iemand anders)</button>
-      <button class="bod-btn" id="bod-eigen" onclick="setBodType('eigen',this)">🙋 Mijn bod</button>
+      <button class="bod-btn active" id="bod-ander" onclick="setBodType('ander',this)">&#128100; Huidig bod (iemand anders)</button>
+      <button class="bod-btn" id="bod-eigen" onclick="setBodType('eigen',this)">&#128587; Mijn bod</button>
     </div>
-    <div class="hint" id="bod-hint">Huidig hoogste bod op HNVI — staat als "Hoogste bod" op de pagina</div>
+    <div class="hint" id="bod-hint">Huidig hoogste bod op HNVI</div>
     <div style="position:relative">
-      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--muted)">€</span>
+      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--muted)">&#8364;</span>
       <input type="text" id="huidig-bod" placeholder="bijv. 250" style="padding-left:26px;font-size:16px;font-weight:700" />
     </div>
-    <label style="margin-top:14px">📷 Foto's <span style="font-weight:400;font-size:11px;color:#9ab39e">— optioneel</span></label>
+    <label style="margin-top:14px">&#128247; Foto's <span style="font-weight:400;font-size:11px;color:#9ab39e">- optioneel</span></label>
     <div class="upload-zone" id="upload-zone">
       <input type="file" id="foto-input" accept="image/*" multiple />
-      <p>📷 Sleep foto's hierheen of <strong style="color:var(--brand)">klik om te uploaden</strong></p>
+      <p>&#128247; Sleep foto's hierheen of <strong style="color:var(--brand)">klik om te uploaden</strong></p>
     </div>
     <div class="previews" id="previews"></div>
-    <label style="margin-top:14px">📝 Extra opmerkingen <span style="font-weight:400;font-size:11px;color:#9ab39e">— optioneel</span></label>
+    <label style="margin-top:14px">&#128221; Extra opmerkingen <span style="font-weight:400;font-size:11px;color:#9ab39e">- optioneel</span></label>
     <textarea id="extra-txt" placeholder="Eigen observaties, bijzonderheden..."></textarea>
     <button class="btn-primary" id="analyse-btn" onclick="analyseer()">
-      <span id="analyse-btn-txt">🔍 Analyseer kavel</span>
+      <span id="analyse-btn-txt">&#128269; Analyseer kavel</span>
     </button>
     <div class="msg err" id="analyse-err"></div>
     <div id="stappen" style="display:none">
       <div class="steps">
-        <div class="step" id="stap1"><span>🔎</span> Productnaam bepalen uit URL</div>
-        <div class="step" id="stap2"><span>💰</span> Marktprijzen ophalen (MP & eBay)</div>
-        <div class="step" id="stap3"><span>📊</span> Marge & advies berekenen</div>
+        <div class="step" id="stap1"><span>&#128269;</span> Productnaam bepalen</div>
+        <div class="step" id="stap2"><span>&#128176;</span> Marktprijzen ophalen</div>
+        <div class="step" id="stap3"><span>&#128202;</span> Advies berekenen</div>
       </div>
     </div>
   </div>
 </div>
- 
-<!-- HANDLEIDING -->
+
 <div id="tab-handleiding" class="panel">
   <div class="card">
-    <div class="card-title">🚀 Hoe werkt het</div>
+    <div class="card-title">Hoe werkt het</div>
     <div style="display:flex;flex-direction:column;gap:16px">
       <div style="display:flex;gap:12px;align-items:flex-start">
-        <div style="width:30px;height:30px;background:var(--brand);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:14px">1</div>
+        <div style="width:28px;height:28px;background:var(--brand);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:13px">1</div>
         <div><strong>HNVI kavel URL plakken</strong><br><span style="font-size:13px;color:var(--muted)">Kopieer de link van het kavel op hnvi.nl en plak hem in de app.</span></div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start">
-        <div style="width:30px;height:30px;background:var(--brand);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:14px">2</div>
-        <div><strong>Bod invullen</strong><br><span style="font-size:13px;color:var(--muted)">Vul het huidig bod in van de HNVI pagina. Kies "Mijn bod" als het jouw eigen bieding is.</span></div>
+        <div style="width:28px;height:28px;background:var(--brand);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:13px">2</div>
+        <div><strong>Bod invullen</strong><br><span style="font-size:13px;color:var(--muted)">Vul het huidig bod in. Kies "Mijn bod" als het jouw eigen bieding is.</span></div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start">
-        <div style="width:30px;height:30px;background:var(--brand);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:14px">3</div>
-        <div><strong>Analyseer</strong><br><span style="font-size:13px;color:var(--muted)">De AI bepaalt de productnaam uit de URL, haalt marktprijzen op en berekent je marge.</span></div>
-      </div>
-      <div style="display:flex;gap:12px;align-items:flex-start">
-        <div style="width:30px;height:30px;background:var(--brand);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:14px">4</div>
-        <div><strong>Overzicht bekijken</strong><br><span style="font-size:13px;color:var(--muted)">Alle kavels staan in het overzicht met advies: ✓ Bied / ~ Twijfel / ✗ Skip.</span></div>
+        <div style="width:28px;height:28px;background:var(--brand);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:13px">3</div>
+        <div><strong>Analyseer</strong><br><span style="font-size:13px;color:var(--muted)">De AI bepaalt de productnaam, haalt marktprijzen op en berekent je marge.</span></div>
       </div>
     </div>
   </div>
   <div class="card">
-    <div class="card-title">💰 Kostenberekening</div>
+    <div class="card-title">Kostenberekening</div>
     <div style="font-size:14px;line-height:2;color:var(--muted)">
-      Bod: <strong style="color:var(--text)">€1.000</strong><br>
-      × 0,17 (veilingkosten) = <strong style="color:var(--text)">€170</strong> (totaal: €1.170)<br>
-      × 0,21 (BTW over totaal) = <strong style="color:var(--text)">€245,70</strong> (totaal: €1.415,70)<br>
+      Bod: <strong style="color:var(--text)">&#8364;1.000</strong><br>
+      x 0,17 (veilingkosten) = <strong style="color:var(--text)">&#8364;170</strong> (totaal: &#8364;1.170)<br>
+      x 0,21 (BTW over totaal) = <strong style="color:var(--text)">&#8364;245,70</strong> (totaal: &#8364;1.415,70)<br>
       <span style="border-top:1px solid var(--border);display:block;margin:6px 0"></span>
-      = Totale inkoopprijs: <strong style="color:var(--brand);font-size:16px">€1.415,70</strong>
+      = Totale inkoopprijs: <strong style="color:var(--brand);font-size:16px">&#8364;1.415,70</strong>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-title">📱 App op telefoon</div>
-    <p style="font-size:14px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">iPhone:</strong> Tik onderin op het Deel-icoon → "Zet op beginscherm"<br><strong style="color:var(--text)">Android:</strong> Tik rechtsboven op de drie puntjes → "Toevoegen aan beginscherm"</p>
   </div>
 </div>
- 
-</div><!-- /main -->
- 
+
+</div>
+
 <script>
-// ── State ────────────────────────────────────────────────────────────────────
-let kavels = [];
-let imgs = [];
-let bodType = 'ander';
-let actieveFilter = 'alles';
-let selectieModus = false;
-let geselecteerd = new Set();
-let huidigGefilterd = [];
- 
-// ── API Key ──────────────────────────────────────────────────────────────────
+var kavels = [];
+var imgs = [];
+var bodType = 'ander';
+var actieveFilter = 'alles';
+var selectieModus = false;
+var geselecteerd = new Set();
+var huidigGefilterd = [];
+
 function getApiKey() { return localStorage.getItem('hnvi_apikey') || ''; }
 function slaApiKeyOp() {
-  const k = document.getElementById('apikey-input').value.trim();
-  if (!k.startsWith('sk-ant-')) { alert('Ongeldige API key'); return; }
+  var k = document.getElementById('apikey-input').value.trim();
+  if (k.indexOf('sk-ant-') !== 0) { alert('Ongeldige API key'); return; }
   localStorage.setItem('hnvi_apikey', k);
   checkApiKey();
 }
 function resetApiKey() { localStorage.removeItem('hnvi_apikey'); checkApiKey(); }
 function checkApiKey() {
-  const k = getApiKey();
+  var k = getApiKey();
   document.getElementById('apikey-bar').style.display = k ? 'none' : 'flex';
   document.getElementById('apikey-ok').style.display = k ? 'flex' : 'none';
 }
- 
-// ── Storage ──────────────────────────────────────────────────────────────────
-async function laadKavels() {
+
+function laadKavels() {
   try { kavels = JSON.parse(localStorage.getItem('hnvi_kavels') || '[]'); } catch(e) { kavels = []; }
 }
-async function slaKavelsOp() {
+function slaKavelsOp() {
   localStorage.setItem('hnvi_kavels', JSON.stringify(kavels));
 }
- 
-// ── Tabs ─────────────────────────────────────────────────────────────────────
+
 function switchTab(name) {
-  const namen = ['overzicht','analyse','handleiding'];
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', namen[i] === name));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  var namen = ['overzicht','analyse','handleiding'];
+  document.querySelectorAll('.tab').forEach(function(t,i) { t.classList.toggle('active', namen[i] === name); });
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
   document.getElementById('tab-' + name).classList.add('active');
   if (name === 'overzicht') renderOverzicht();
 }
- 
-// ── Upload ───────────────────────────────────────────────────────────────────
-const zone = document.getElementById('upload-zone');
-document.getElementById('foto-input').addEventListener('change', e => leesFiles(e.target.files));
-zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag'); });
-zone.addEventListener('dragleave', () => zone.classList.remove('drag'));
-zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('drag'); leesFiles(e.dataTransfer.files); });
+
+var zone = document.getElementById('upload-zone');
+document.getElementById('foto-input').addEventListener('change', function(e) { leesFiles(e.target.files); });
+zone.addEventListener('dragover', function(e) { e.preventDefault(); zone.classList.add('drag'); });
+zone.addEventListener('dragleave', function() { zone.classList.remove('drag'); });
+zone.addEventListener('drop', function(e) { e.preventDefault(); zone.classList.remove('drag'); leesFiles(e.dataTransfer.files); });
+
 function leesFiles(files) {
-  [...files].forEach(f => {
+  Array.from(files).forEach(function(f) {
     if (!f.type.startsWith('image/')) return;
-    const r = new FileReader();
-    r.onload = e => {
-      const id = Date.now() + Math.random();
-      imgs.push({ id, base64: e.target.result.split(',')[1], mediaType: f.type });
-      const d = document.createElement('div');
-      d.className = 'prev'; d.id = 'prev-'+id;
-      d.innerHTML = `<img src="${e.target.result}"><button class="prev-del" onclick="delImg(${id})">×</button>`;
+    var r = new FileReader();
+    r.onload = function(e) {
+      var id = Date.now() + Math.random();
+      imgs.push({ id: id, base64: e.target.result.split(',')[1], mediaType: f.type });
+      var d = document.createElement('div');
+      d.className = 'prev'; d.id = 'prev-' + id;
+      var img = document.createElement('img'); img.src = e.target.result;
+      var btn = document.createElement('button'); btn.className = 'prev-del'; btn.textContent = 'x';
+      btn.onclick = function() { delImg(id); };
+      d.appendChild(img); d.appendChild(btn);
       document.getElementById('previews').appendChild(d);
     };
     r.readAsDataURL(f);
   });
 }
 function delImg(id) {
-  imgs = imgs.filter(i => i.id !== id);
-  document.getElementById('prev-'+id)?.remove();
+  imgs = imgs.filter(function(i) { return i.id !== id; });
+  var el = document.getElementById('prev-' + id);
+  if (el) el.remove();
 }
- 
-// ── Bod type ─────────────────────────────────────────────────────────────────
+
 function setBodType(type, btn) {
   bodType = type;
-  document.querySelectorAll('.bod-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.bod-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
   document.getElementById('bod-hint').textContent = type === 'eigen'
-    ? 'Jouw bod — dit wordt gebruikt als inkoopprijs voor de margeberekening'
-    : 'Huidig hoogste bod op HNVI — staat als "Hoogste bod" op de pagina';
+    ? 'Jouw bod - gebruikt als inkoopprijs voor margeberekening'
+    : 'Huidig hoogste bod op HNVI';
 }
- 
-// ── Steps UI ─────────────────────────────────────────────────────────────────
+
 function setStap(n) {
   document.getElementById('stappen').style.display = 'block';
-  const icons = ['🔎','💰','📊'];
-  const labels = ['Productnaam bepalen uit URL','Marktprijzen ophalen (MP & eBay)','Marge & advies berekenen'];
-  [1,2,3].forEach(i => {
-    const el = document.getElementById('stap'+i);
+  var icons = ['&#128269;','&#128176;','&#128202;'];
+  var labels = ['Productnaam bepalen','Marktprijzen ophalen','Advies berekenen'];
+  [1,2,3].forEach(function(i) {
+    var el = document.getElementById('stap' + i);
     if (i < n) {
       el.className = 'step done';
-      el.innerHTML = `<span>✅</span> ${labels[i-1]}`;
+      el.innerHTML = '<span>&#9989;</span> ' + labels[i-1];
     } else if (i === n) {
       el.className = 'step active';
-      el.innerHTML = `<span class="spinner spinner-brand" style="width:14px;height:14px;border-width:2px"></span> ${labels[i-1]}`;
+      var sp = document.createElement('span'); sp.className = 'step-spin';
+      el.innerHTML = '';
+      el.appendChild(sp);
+      el.appendChild(document.createTextNode(' ' + labels[i-1]));
     } else {
       el.className = 'step';
-      el.innerHTML = `<span>${icons[i-1]}</span> ${labels[i-1]}`;
+      el.innerHTML = '<span>' + icons[i-1] + '</span> ' + labels[i-1];
     }
   });
 }
 function verbergStappen() { document.getElementById('stappen').style.display = 'none'; }
- 
-// ── Claude API ────────────────────────────────────────────────────────────────
-async function callClaude(system, userText, maxTokens) {
-  const key = getApiKey();
-  if (!key) throw new Error('Voer eerst een API key in (zie de balk bovenaan).');
-  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+
+function fmt(n) { return (n != null && isFinite(n)) ? '\u20ac' + Math.round(n).toLocaleString('nl-NL') : '-'; }
+
+function naamUitUrl(u) {
+  try {
+    var deel = (u.split('/veiling-kavel/')[1] || '').split('?')[0];
+    var slug = deel.replace(/\/\d+$/, '').replace(/-/g, ' ').trim();
+    return slug.charAt(0).toUpperCase() + slug.slice(1);
+  } catch(e) { return ''; }
+}
+
+function parseJSON(txt) {
+  try { return JSON.parse(txt.trim()); } catch(e) {}
+  var start = txt.indexOf('{');
+  var end = txt.lastIndexOf('}');
+  if (start !== -1 && end !== -1 && end > start) {
+    try { return JSON.parse(txt.slice(start, end + 1)); } catch(e) {}
+  }
+  return null;
+}
+
+function callClaude(system, userText, maxTokens) {
+  var key = getApiKey();
+  if (!key) return Promise.reject(new Error('Voer eerst een API key in.'));
+  return fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -455,451 +413,415 @@ async function callClaude(system, userText, maxTokens) {
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
       max_tokens: maxTokens || 600,
-      system,
+      system: system,
       messages: [{ role: 'user', content: userText }]
     })
+  }).then(function(resp) {
+    return resp.json();
+  }).then(function(data) {
+    if (data.error) throw new Error('API: ' + data.error.message);
+    return data.content.map(function(b) { return b.text || ''; }).join('');
   });
-  const data = await resp.json();
-  if (data.error) throw new Error('API: ' + data.error.message);
-  return data.content.map(b => b.text || '').join('');
 }
- 
-function parseJSON(txt) {
-  try { return JSON.parse(txt.trim()); } catch(e) {}
-  const f = txt.match(/```(?:json)?\s*([\s\S]*?)```/);
-  if (f) { try { return JSON.parse(f[1].trim()); } catch(e) {} }
-  const b = txt.match(/\{[\s\S]*\}/);
-  if (b) { try { return JSON.parse(b[0]); } catch(e) {} }
-  return null;
-}
- 
-const fmt = n => n != null && isFinite(n) ? '€' + Math.round(n).toLocaleString('nl-NL') : '–';
- 
-function naamUitUrl(u) {
-  try {
-    const deel = (u.split('/veiling-kavel/')[1] || '').split('?')[0];
-    const slug = deel.replace(/\/\d+$/, '').replace(/-/g, ' ').trim();
-    return slug.charAt(0).toUpperCase() + slug.slice(1);
-  } catch(e) { return ''; }
-}
- 
-// ── Analyseer ────────────────────────────────────────────────────────────────
-async function analyseer() {
-  const url = document.getElementById('kavel-url').value.trim();
-  const bodStr = document.getElementById('huidig-bod').value.trim();
-  const extra = document.getElementById('extra-txt').value.trim();
- 
+
+function analyseer() {
+  var url = document.getElementById('kavel-url').value.trim();
+  var bodStr = document.getElementById('huidig-bod').value.trim();
+  var extra = document.getElementById('extra-txt').value.trim();
+
   if (!url && imgs.length === 0 && !extra) {
-    toonMsg('analyse-err', 'Voer een HNVI URL in of voeg een foto/beschrijving toe.'); return;
+    toonMsg('analyse-err', 'Voer een HNVI URL in of voeg een beschrijving toe.'); return;
   }
- 
+
   document.getElementById('analyse-err').style.display = 'none';
   document.getElementById('analyse-result').style.display = 'none';
   setBtn('analyse-btn', 'analyse-btn-txt', true, '<span class="spinner"></span> Analyseren...');
- 
-  try {
-    // Stap 1: naam uit URL
-    setStap(1);
-    const urlNaam = url ? naamUitUrl(url) : '';
-    const product = extra || urlNaam || 'onbekend product';
-    const bod = bodStr ? parseFloat(bodStr.replace(',', '.')) : null;
-    const kavelnr = url ? (url.match(/\/(\d+)(?:\?|$)/) || [])[1] : null;
- 
-    // Stap 2: marktprijzen
-    setStap(2);
-    const prijzenTxt = await callClaude(
-      'Je bent een Nederlandse 2e hands marktprijsexpert. Geef ALLEEN een geldig JSON object terug, geen tekst ervoor of erna, geen markdown.',
-      `Geef realistische 2e hands marktprijzen voor: "${product}"
- 
-Vul dit JSON object in met echte getallen (geen 0, geen null):
-{"productnaam":"${product}","categorie":"categorie","nieuwprijs":100,"nieuwprijs_bron":"schatting op basis van marktkennis","marktplaats":{"laag":50,"gemiddeld":75,"hoog":100,"vertrouwen":"middel","tip":"concrete verkooptip voor Marktplaats","verkooptijd":"1-4 weken","zoekwoorden":["woord1","woord2"]},"ebay":{"laag":60,"gemiddeld":85,"hoog":110,"vertrouwen":"laag","tip":"concrete eBay tip","verkooptijd":"2-6 weken","keywords":["word1","word2"]},"aandachtspunten":["aandachtspunt 1","aandachtspunt 2"]}`,
-      700
-    );
- 
-    const prijzen = parseJSON(prijzenTxt);
+
+  var urlNaam = url ? naamUitUrl(url) : '';
+  var product = (extra || urlNaam || 'onbekend product').replace(/"/g, '').replace(/'/g, '').trim();
+  var bod = bodStr ? parseFloat(bodStr.replace(',', '.')) : null;
+  var kavelnr = url ? ((url.match(/\/(\d+)(?:\?|$)/) || [])[1]) : null;
+
+  setStap(1);
+
+  var prijzenPrompt = 'Geef realistische marktprijzen voor: "' + product + '"\n\n' +
+    'BELANGRIJK voor nieuwprijs:\n' +
+    '- Gebruik de HUIDIGE winkelprijs (bol.com, coolblue, mediamarkt, amazon.nl)\n' +
+    '- NIET de officiele adviesprijs van de fabrikant\n' +
+    '- Als een winkel voor minder verkoopt dan de adviesprijs, gebruik die lagere prijs\n' +
+    '- Vermeld in nieuwprijs_bron welke winkel en prijs je kent\n\n' +
+    'BELANGRIJK voor 2e hands:\n' +
+    '- Marktplaats prijs moet ALTIJD lager zijn dan huidige winkelprijs\n' +
+    '- Goede staat: 65-80% van huidige winkelprijs\n' +
+    '- Redelijke staat: 45-65% van huidige winkelprijs\n\n' +
+    'Vul dit JSON object in met echte getallen:\n' +
+    '{"productnaam":"' + product + '","categorie":"categorie","nieuwprijs":100,"nieuwprijs_bron":"winkel en prijs","marktplaats":{"laag":50,"gemiddeld":75,"hoog":100,"vertrouwen":"middel","tip":"verkooptip","verkooptijd":"1-4 weken","zoekwoorden":["woord"]},"ebay":{"laag":60,"gemiddeld":85,"hoog":110,"vertrouwen":"laag","tip":"ebay tip","verkooptijd":"2-6 weken","keywords":["word"]},"aandachtspunten":["punt"]}';
+
+  setStap(2);
+  console.log('Product voor analyse:', product);
+
+  callClaude(
+    'Je bent een Nederlandse marktprijsexpert. Geef ALLEEN een geldig JSON object terug, geen tekst ervoor of erna.',
+    prijzenPrompt,
+    700
+  ).then(function(prijzenTxt) {
+    var prijzen = parseJSON(prijzenTxt);
     if (!prijzen || !prijzen.marktplaats) throw new Error('Kon geen marktprijzen ophalen. Probeer opnieuw.');
- 
-    // Stap 3: foto + advies
+
     setStap(3);
-    let fotoObs = null;
-    if (imgs.length > 0) {
-      const fc = imgs.map(i => ({ type: 'image', source: { type: 'base64', media_type: i.mediaType, data: i.base64 } }));
-      fc.push({ type: 'text', text: 'Beschrijf de staat van dit product in 1 zin.' });
-      fotoObs = await callClaude('Beschrijf de staat van het product in 1 zin Nederlands.', fc, 80);
-    }
- 
-    // Kosten
-    const mp = prijzen.marktplaats;
-    let kosten = null;
+
+    var mp = prijzen.marktplaats;
+    var kosten = null;
     if (bod) {
-      const totaal = bod * 1.17 * 1.21;
-      const vk = bod * 0.17;
-      const btw = totaal - bod - vk;
-      const marge = mp.gemiddeld - totaal;
-      kosten = { bod, vk, btw, totaal, marge };
+      var totaal = bod * 1.17 * 1.21;
+      var vk = bod * 0.17;
+      var btw = totaal - bod - vk;
+      var marge = mp.gemiddeld - totaal;
+      kosten = { bod: bod, vk: vk, btw: btw, totaal: totaal, marge: marge };
     }
- 
-    // Advies
-    let advies = 'twijfel', adviesReden = '', roi = 50;
+
+    var advies = 'twijfel', adviesReden = '', roi = 50;
     if (kosten) {
-      const m = kosten.marge;
-      const pct = Math.round((m / mp.gemiddeld) * 100);
+      var m = kosten.marge;
+      var pct = Math.round((m / mp.gemiddeld) * 100);
       if (m > 0 && pct >= 20) { advies = 'kopen'; roi = Math.min(93, 55 + pct); }
       else if (m < -50 || pct < -10) { advies = 'skip'; roi = Math.max(8, 50 + pct / 2); }
       else { roi = Math.max(25, Math.min(68, 50 + pct / 2)); }
       adviesReden = m > 0
-        ? `Inkoopprijs ${fmt(kosten.totaal)} · MP verkoopprijs ~${fmt(mp.gemiddeld)} → marge ${fmt(m)} (${pct}% van verkoopprijs).`
-        : `Inkoopprijs ${fmt(kosten.totaal)} ligt ${fmt(Math.abs(m))} bóven de gemiddelde MP verkoopprijs van ${fmt(mp.gemiddeld)} (${pct}%).`;
+        ? 'Inkoopprijs ' + fmt(kosten.totaal) + ' vs MP ~' + fmt(mp.gemiddeld) + ' marge ' + fmt(m) + ' (' + pct + '% van verkoopprijs).'
+        : 'Inkoopprijs ' + fmt(kosten.totaal) + ' ligt ' + fmt(Math.abs(m)) + ' boven MP prijs van ' + fmt(mp.gemiddeld) + ' (' + pct + '%).';
     } else {
-      const maxBod = mp ? Math.round(mp.laag * 0.8 / (1.17 * 1.21)) : null;
-      adviesReden = maxBod ? `Maximaal rendabel bieden: ${fmt(maxBod)}.` : 'Vul het bod in voor margeberekening.';
+      var maxBodCalc = mp ? Math.round(mp.laag * 0.8 / (1.17 * 1.21)) : null;
+      adviesReden = maxBodCalc ? 'Maximaal rendabel bieden: ' + fmt(maxBodCalc) + '.' : 'Vul het bod in voor margeberekening.';
     }
- 
-    const maxBod = mp ? Math.round(mp.laag * 0.8 / (1.17 * 1.21)) : null;
-    const kavelData = {
-      id: Date.now(), url, titel: prijzen.productnaam || product,
+
+    var maxBod = mp ? Math.round(mp.laag * 0.8 / (1.17 * 1.21)) : null;
+    var kavelData = {
+      id: Date.now(), url: url, titel: prijzen.productnaam || product,
       veiling: 'HNVI', kavelnummer: kavelnr, huidig_bod: bod,
-      kosten, mp_gemiddeld: mp.gemiddeld, mp_laag: mp.laag, mp_hoog: mp.hoog,
-      ebay_gemiddeld: prijzen.ebay?.gemiddeld, nieuwprijs: prijzen.nieuwprijs,
-      advies, adviesReden, roi: Math.round(roi), prijzen, fotoObs, maxBod,
+      kosten: kosten, mp_gemiddeld: mp.gemiddeld, mp_laag: mp.laag, mp_hoog: mp.hoog,
+      ebay_gemiddeld: prijzen.ebay ? prijzen.ebay.gemiddeld : null,
+      nieuwprijs: prijzen.nieuwprijs, advies: advies, adviesReden: adviesReden,
+      roi: Math.round(roi), prijzen: prijzen, maxBod: maxBod,
       eigen_bod: bodType === 'eigen', toegevoegd: Date.now(), status: 'klaar'
     };
- 
-    const idx = kavels.findIndex(k => k.url === url && url);
+
+    var idx = kavels.findIndex(function(k) { return k.url === url && url; });
     if (idx >= 0) kavels[idx] = kavelData; else kavels.unshift(kavelData);
-    await slaKavelsOp();
+    slaKavelsOp();
     updateBadge();
     verbergStappen();
     toonAnalyseResultaat(kavelData);
- 
-  } catch(e) {
+
+  }).catch(function(e) {
+    console.error('Analyse fout:', e);
     verbergStappen();
     toonMsg('analyse-err', e.message || 'Er ging iets mis. Probeer opnieuw.');
-  } finally {
-    setBtn('analyse-btn', 'analyse-btn-txt', false, '🔍 Analyseer kavel');
-  }
+  }).finally(function() {
+    setBtn('analyse-btn', 'analyse-btn-txt', false, '&#128269; Analyseer kavel');
+  });
 }
- 
+
 function toonAnalyseResultaat(d) {
-  const mp = d.prijzen?.marktplaats, eb = d.prijzen?.ebay;
-  const vC = d.advies==='kopen'?'v-kopen':d.advies==='twijfel'?'v-twijfel':'v-skip';
-  const vE = d.advies==='kopen'?'✅ Goede koop!':d.advies==='twijfel'?'⚠️ Twijfelgeval':'❌ Beter overslaan';
-  const conf = v => v==='hoog'?'b-high':v==='middel'?'b-mid':'b-low';
-  const confTxt = v => v==='hoog'?'✓ Betrouwbaar':v==='middel'?'~ Indicatief':'? Onzeker';
-  const roiKleur = d.roi>=70?'#1a6b35':d.roi>=40?'#d97706':'#e63946';
- 
+  var mp = d.prijzen && d.prijzen.marktplaats ? d.prijzen.marktplaats : null;
+  var eb = d.prijzen && d.prijzen.ebay ? d.prijzen.ebay : null;
+  var vC = d.advies==='kopen'?'v-kopen':d.advies==='twijfel'?'v-twijfel':'v-skip';
+  var vE = d.advies==='kopen'?'&#9989; Goede koop!':d.advies==='twijfel'?'&#9888;&#65039; Twijfelgeval':'&#10060; Beter overslaan';
+  var confCls = function(v) { return v==='hoog'?'b-high':v==='middel'?'b-mid':'b-low'; };
+  var confTxt = function(v) { return v==='hoog'?'&#10003; Betrouwbaar':v==='middel'?'~ Indicatief':'? Onzeker'; };
+  var roiKleur = d.roi>=70?'#1a6b35':d.roi>=40?'#d97706':'#e63946';
+
+  var html = '<button class="back-btn" onclick="document.getElementById(\'analyse-result\').style.display=\'none\'">&#8592; Terug</button>';
+
+  html += '<div class="card" style="border-left:4px solid var(--brand)">';
+  html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:6px">';
+  html += '<div><h2 style="font-size:17px;font-weight:700;margin-bottom:3px">' + (d.titel||'') + '</h2>';
+  html += '<div style="font-size:12px;color:var(--muted)">Kavel ' + (d.kavelnummer||'-') + ' &middot; HNVI';
+  if (d.url) html += ' &middot; <a href="' + d.url + '" target="_blank" style="color:var(--brand)">&#8599; Bekijk op HNVI</a>';
+  html += '</div></div>';
+  if (d.prijzen && d.prijzen.categorie) html += '<span style="background:var(--brand-light);color:var(--brand);font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px">' + d.prijzen.categorie + '</span>';
+  html += '</div></div>';
+
+  html += '<div class="verdict ' + vC + '"><h3>' + vE + '</h3><p>' + d.adviesReden + '</p>';
+  if (d.maxBod) html += '<p style="margin-top:7px;font-weight:600">&#128161; Maximaal rendabel bieden: <span style="font-size:15px">' + fmt(d.maxBod) + '</span></p>';
+  html += '</div>';
+
+  if (d.kosten) {
+    html += '<div class="costs-box"><h4>&#128176; Kostenberekening &mdash; ' + (d.eigen_bod?'&#128587; Mijn bod':'&#128100; Huidig bod') + '</h4>';
+    html += '<div class="c-row"><span>Bod</span><span>' + fmt(d.kosten.bod) + '</span></div>';
+    html += '<div class="c-row"><span>Veilingkosten (17%)</span><span>' + fmt(d.kosten.vk) + '</span></div>';
+    html += '<div class="c-row"><span>BTW over totaal (21%)</span><span>' + fmt(d.kosten.btw) + '</span></div>';
+    html += '<div class="c-row"><span>Totale inkoopprijs</span><span>' + fmt(d.kosten.totaal) + '</span></div>';
+    if (d.kosten.marge != null) {
+      html += '<div class="c-row" style="margin-top:6px;padding-top:8px;border-top:1px solid #ffe082"><span>Verwachte marge (MP gem.)</span>';
+      html += '<span class="' + (d.kosten.marge>0?'c-pos':'c-neg') + '">' + (d.kosten.marge>0?'+':'') + fmt(d.kosten.marge) + '</span></div>';
+    }
+    html += '</div>';
+  }
+
+  html += '<div class="roi-wrap"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
+  html += '<span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Handelspotentieel</span>';
+  html += '<span style="font-size:20px;font-weight:800;color:' + roiKleur + '">' + d.roi + '/100</span></div>';
+  html += '<div class="roi-bar"><div class="roi-fill" style="width:' + d.roi + '%"></div></div>';
+  html += '<div class="roi-labels"><span>Laag</span><span>Gemiddeld</span><span>Hoog</span></div></div>';
+
+  if (d.prijzen && d.prijzen.nieuwprijs) {
+    html += '<div class="card" style="margin-bottom:16px"><div class="card-title">Referentieprijzen</div>';
+    html += '<div style="display:flex;gap:20px;flex-wrap:wrap">';
+    html += '<div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">Nieuwprijs</div><div style="font-size:19px;font-weight:700">' + fmt(d.prijzen.nieuwprijs) + '</div>';
+    html += '<div style="font-size:11px;color:var(--muted)">' + (d.prijzen.nieuwprijs_bron||'') + '</div></div>';
+    if (mp) html += '<div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">2e hands MP</div><div style="font-size:19px;font-weight:700;color:#ff6600">' + fmt(mp.gemiddeld) + '</div></div>';
+    if (eb) html += '<div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">eBay</div><div style="font-size:19px;font-weight:700;color:#0064d2">' + fmt(eb.gemiddeld) + '</div></div>';
+    html += '</div></div>';
+  }
+
+  html += '<div class="price-grid">';
+  if (mp) {
+    html += '<div class="p-card"><div class="p-platform mp">Marktplaats</div>';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><div>';
+    html += '<div style="display:flex;align-items:baseline;gap:4px"><span class="p-range">' + fmt(mp.laag) + ' - </span><span class="p-main">' + fmt(mp.gemiddeld) + '</span><span class="p-range"> - ' + fmt(mp.hoog) + '</span></div>';
+    html += '<div class="p-sub">&#8987; ' + (mp.verkooptijd||'-') + '</div></div>';
+    html += '<span class="badge ' + confCls(mp.vertrouwen) + '">' + confTxt(mp.vertrouwen) + '</span></div>';
+    html += '<div class="p-tip">&#128161; ' + (mp.tip||'') + '</div>';
+    if (mp.zoekwoorden) { html += '<div class="tags">'; mp.zoekwoorden.forEach(function(t) { html += '<span class="tag">' + t + '</span>'; }); html += '</div>'; }
+    html += '</div>';
+  }
+  if (eb) {
+    html += '<div class="p-card"><div class="p-platform ebay">eBay</div>';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><div>';
+    html += '<div style="display:flex;align-items:baseline;gap:4px"><span class="p-range">' + fmt(eb.laag) + ' - </span><span class="p-main">' + fmt(eb.gemiddeld) + '</span><span class="p-range"> - ' + fmt(eb.hoog) + '</span></div>';
+    html += '<div class="p-sub">&#8987; ' + (eb.verkooptijd||'-') + ' &#127757;</div></div>';
+    html += '<span class="badge ' + confCls(eb.vertrouwen) + '">' + confTxt(eb.vertrouwen) + '</span></div>';
+    html += '<div class="p-tip">&#128161; ' + (eb.tip||'') + '</div>';
+    if (eb.keywords) { html += '<div class="tags">'; eb.keywords.forEach(function(t) { html += '<span class="tag">' + t + '</span>'; }); html += '</div>'; }
+    html += '</div>';
+  }
+  html += '</div>';
+
+  html += '<div class="detail-grid">';
+  if (d.prijzen && d.prijzen.aandachtspunten) {
+    html += '<div class="detail-card"><div class="card-title">Let op</div><ul>';
+    d.prijzen.aandachtspunten.forEach(function(p) { html += '<li>' + p + '</li>'; });
+    html += '</ul></div>';
+  }
+  html += '<div class="detail-card"><div class="card-title">Snel overzicht</div><ul>';
+  if (d.kosten) html += '<li>Inkoopprijs: ' + fmt(d.kosten.totaal) + '</li>';
+  if (d.maxBod) html += '<li>Max rendabel bod: ' + fmt(d.maxBod) + '</li>';
+  if (mp) html += '<li>MP: ' + fmt(mp.laag) + ' - ' + fmt(mp.hoog) + '</li>';
+  if (d.prijzen && d.prijzen.nieuwprijs) html += '<li>Nieuwprijs: ' + fmt(d.prijzen.nieuwprijs) + '</li>';
+  html += '</ul></div></div>';
+  html += '<button class="btn-sm" onclick="switchTab(\'overzicht\')">&#128203; Naar overzicht</button>';
+
+  document.getElementById('analyse-result').innerHTML = html;
   document.getElementById('analyse-result').style.display = 'block';
-  document.getElementById('analyse-result').innerHTML = `
-    <button class="back-btn" onclick="document.getElementById('analyse-result').style.display='none'">← Terug</button>
-    <div class="card" style="border-left:4px solid var(--brand)">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:6px">
-        <div><h2 style="font-size:17px;font-weight:700;margin-bottom:3px">${d.titel}</h2>
-        <div style="font-size:12px;color:var(--muted)">Kavel ${d.kavelnummer||'–'} · HNVI${d.url?' · <a href="'+d.url+'" target="_blank" style="color:var(--brand)">↗ Bekijk op HNVI</a>':''}</div></div>
-        <span style="background:var(--brand-light);color:var(--brand);font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px">${d.prijzen?.categorie||''}</span>
-      </div>
-      ${d.fotoObs?`<div style="background:#f0f7f2;border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.5;margin-top:8px;border:1px solid #c8e6c9"><strong style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);display:block;margin-bottom:3px">👁 Visuele staat</strong>${d.fotoObs}</div>`:''}
-    </div>
-    <div class="verdict ${vC}"><h3>${vE}</h3><p>${d.adviesReden}</p>
-      ${d.maxBod?`<p style="margin-top:7px;font-weight:600">💡 Maximaal rendabel bieden: <span style="font-size:15px">${fmt(d.maxBod)}</span></p>`:''}
-    </div>
-    ${d.kosten?`<div class="costs-box">
-      <h4>💰 Kostenberekening — ${d.eigen_bod?'🙋 Mijn bod':'👤 Huidig bod'}</h4>
-      <div class="c-row"><span>Bod</span><span>${fmt(d.kosten.bod)}</span></div>
-      <div class="c-row"><span>Veilingkosten (17%)</span><span>${fmt(d.kosten.vk)}</span></div>
-      <div class="c-row"><span>BTW over totaal (21%)</span><span>${fmt(d.kosten.btw)}</span></div>
-      <div class="c-row"><span>Totale inkoopprijs</span><span>${fmt(d.kosten.totaal)}</span></div>
-      ${d.kosten.marge!=null?`<div class="c-row" style="margin-top:6px;padding-top:8px;border-top:1px solid #ffe082"><span>Verwachte marge (MP gem.)</span><span class="${d.kosten.marge>0?'c-pos':'c-neg'}">${d.kosten.marge>0?'+':''}${fmt(d.kosten.marge)}</span></div>`:''}
-    </div>`:''}
-    <div class="roi-wrap">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-        <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Handelspotentieel</span>
-        <span style="font-size:20px;font-weight:800;color:${roiKleur}">${d.roi}/100</span>
-      </div>
-      <div class="roi-bar"><div class="roi-fill" style="width:${d.roi}%"></div></div>
-      <div class="roi-labels"><span>Laag</span><span>Gemiddeld</span><span>Hoog</span></div>
-    </div>
-    ${d.prijzen?.nieuwprijs?`<div class="card" style="margin-bottom:16px">
-      <div class="card-title">Referentieprijzen</div>
-      <div style="display:flex;gap:20px;flex-wrap:wrap">
-        <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">Nieuwprijs</div><div style="font-size:19px;font-weight:700">${fmt(d.prijzen.nieuwprijs)}</div><div style="font-size:11px;color:var(--muted)">${d.prijzen.nieuwprijs_bron||''}</div></div>
-        ${mp?`<div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">2e hands MP</div><div style="font-size:19px;font-weight:700;color:#ff6600">${fmt(mp.gemiddeld)}</div></div>`:''}
-        ${eb?`<div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">eBay</div><div style="font-size:19px;font-weight:700;color:#0064d2">${fmt(eb.gemiddeld)}</div></div>`:''}
-      </div>
-    </div>`:''}
-    <div class="price-grid">
-      ${mp?`<div class="p-card"><div class="p-platform mp">Marktplaats</div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-          <div><div style="display:flex;align-items:baseline;gap:4px"><span class="p-range">${fmt(mp.laag)} – </span><span class="p-main">${fmt(mp.gemiddeld)}</span><span class="p-range"> – ${fmt(mp.hoog)}</span></div><div class="p-sub">⏱ ${mp.verkooptijd||'–'}</div></div>
-          <span class="badge ${conf(mp.vertrouwen)}">${confTxt(mp.vertrouwen)}</span>
-        </div>
-        <div class="p-tip">💡 ${mp.tip}</div>
-        ${mp.zoekwoorden?`<div class="tags">${mp.zoekwoorden.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`:''}
-      </div>`:''}
-      ${eb?`<div class="p-card"><div class="p-platform ebay">eBay</div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-          <div><div style="display:flex;align-items:baseline;gap:4px"><span class="p-range">${fmt(eb.laag)} – </span><span class="p-main">${fmt(eb.gemiddeld)}</span><span class="p-range"> – ${fmt(eb.hoog)}</span></div><div class="p-sub">⏱ ${eb.verkooptijd||'–'} 🌍</div></div>
-          <span class="badge ${conf(eb.vertrouwen)}">${confTxt(eb.vertrouwen)}</span>
-        </div>
-        <div class="p-tip">💡 ${eb.tip}</div>
-        ${eb.keywords?`<div class="tags">${eb.keywords.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`:''}
-      </div>`:''}
-    </div>
-    <div class="detail-grid">
-      <div class="detail-card"><div class="card-title">Let op</div>
-        <ul>${(d.prijzen?.aandachtspunten||[]).map(p=>`<li>${p}</li>`).join('')}</ul>
-      </div>
-      <div class="detail-card"><div class="card-title">Snel overzicht</div>
-        <ul>
-          ${d.kosten?`<li>Inkoopprijs totaal: ${fmt(d.kosten.totaal)}</li>`:''}
-          ${d.maxBod?`<li>Max rendabel bod: ${fmt(d.maxBod)}</li>`:''}
-          ${mp?`<li>MP: ${fmt(mp.laag)} – ${fmt(mp.hoog)}</li>`:''}
-          ${d.prijzen?.nieuwprijs?`<li>Nieuwprijs: ${fmt(d.prijzen.nieuwprijs)}</li>`:''}
-        </ul>
-      </div>
-    </div>
-    <button class="btn-sm" onclick="switchTab('overzicht')">📋 Naar overzicht</button>
-  `;
   document.getElementById('analyse-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
- 
-// ── Overzicht ────────────────────────────────────────────────────────────────
+
 function setFilter(f, btn) {
   actieveFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
   renderOverzicht();
 }
- 
+
 function renderOverzicht() {
-  const leeg = document.getElementById('ov-leeg');
-  const inhoud = document.getElementById('ov-inhoud');
+  var leeg = document.getElementById('ov-leeg');
+  var inhoud = document.getElementById('ov-inhoud');
   if (kavels.length === 0) { leeg.style.display='block'; inhoud.style.display='none'; return; }
   leeg.style.display='none'; inhoud.style.display='block';
- 
-  const gefilterd = kavels.filter(k => {
+
+  var gefilterd = kavels.filter(function(k) {
     if (actieveFilter === 'alles') return true;
     if (actieveFilter === 'wacht') return !k.advies || k.status === 'wacht';
     if (actieveFilter === 'eigen') return k.eigen_bod === true;
     return k.advies === actieveFilter;
   });
- 
   huidigGefilterd = gefilterd;
- 
-  const nBied = kavels.filter(k=>k.advies==='kopen').length;
-  const nTwij = kavels.filter(k=>k.advies==='twijfel').length;
-  const nSkip = kavels.filter(k=>k.advies==='skip').length;
-  const nEigen = kavels.filter(k=>k.eigen_bod===true).length;
- 
-  document.getElementById('stats-row').innerHTML = `
-    <div class="stat"><div class="stat-num">${kavels.length}</div><div class="stat-lbl">Totaal</div></div>
-    <div class="stat"><div class="stat-num" style="color:#1a6b35">${nBied}</div><div class="stat-lbl">Aanraders</div></div>
-    <div class="stat"><div class="stat-num" style="color:#d97706">${nTwij}</div><div class="stat-lbl">Twijfel</div></div>
-    <div class="stat"><div class="stat-num" style="color:#e63946">${nSkip}</div><div class="stat-lbl">Skip</div></div>
-    <div class="stat"><div class="stat-num" style="color:#1565c0">${nEigen}</div><div class="stat-lbl">Mijn biedingen</div></div>
-  `;
- 
-  const list = document.getElementById('kavel-list');
+
+  var nBied = kavels.filter(function(k) { return k.advies==='kopen'; }).length;
+  var nTwij = kavels.filter(function(k) { return k.advies==='twijfel'; }).length;
+  var nSkip = kavels.filter(function(k) { return k.advies==='skip'; }).length;
+  var nEigen = kavels.filter(function(k) { return k.eigen_bod===true; }).length;
+
+  document.getElementById('stats-row').innerHTML =
+    '<div class="stat"><div class="stat-num">' + kavels.length + '</div><div class="stat-lbl">Totaal</div></div>' +
+    '<div class="stat"><div class="stat-num" style="color:#1a6b35">' + nBied + '</div><div class="stat-lbl">Aanraders</div></div>' +
+    '<div class="stat"><div class="stat-num" style="color:#d97706">' + nTwij + '</div><div class="stat-lbl">Twijfel</div></div>' +
+    '<div class="stat"><div class="stat-num" style="color:#e63946">' + nSkip + '</div><div class="stat-lbl">Skip</div></div>' +
+    '<div class="stat"><div class="stat-num" style="color:#1565c0">' + nEigen + '</div><div class="stat-lbl">Mijn biedingen</div></div>';
+
+  var list = document.getElementById('kavel-list');
   list.innerHTML = '';
   list.classList.toggle('selectie-modus', selectieModus);
- 
+
   if (gefilterd.length === 0) {
     list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--muted);font-size:14px">Geen kavels in deze categorie</div>';
     return;
   }
- 
-  gefilterd.forEach((k, i) => {
-    const echteIdx = kavels.indexOf(k);
-    const div = document.createElement('div');
+
+  gefilterd.forEach(function(k, i) {
+    var echteIdx = kavels.indexOf(k);
+    var div = document.createElement('div');
     div.className = 'kavel-row' + (geselecteerd.has(i) ? ' geselecteerd' : '');
-    div.onclick = () => { if (selectieModus) selecteerRij(i); };
- 
-    // Selectie col
-    const selCol = document.createElement('div');
-    selCol.className = 'selectie-col';
-    const cb = document.createElement('input');
-    cb.type = 'checkbox'; cb.className = 'kavel-checkbox'; cb.checked = geselecteerd.has(i);
-    cb.onclick = e => e.stopPropagation();
-    cb.onchange = () => selecteerRij(i);
-    selCol.appendChild(cb);
-    div.appendChild(selCol);
- 
-    // Nummer
-    const num = document.createElement('div');
-    num.className = 'kavel-num'; num.textContent = i + 1;
+    div.onclick = function() { if (selectieModus) selecteerRij(i); };
+
+    var selCol = document.createElement('div'); selCol.className = 'selectie-col';
+    var cb = document.createElement('input'); cb.type = 'checkbox'; cb.className = 'kavel-checkbox'; cb.checked = geselecteerd.has(i);
+    cb.onclick = function(e) { e.stopPropagation(); };
+    cb.onchange = function() { selecteerRij(i); };
+    selCol.appendChild(cb); div.appendChild(selCol);
+
+    var num = document.createElement('div'); num.className = 'kavel-num'; num.textContent = i + 1;
     div.appendChild(num);
- 
-    // Main
-    const main = document.createElement('div');
-    main.className = 'kavel-main';
-    const titel = document.createElement('div');
-    titel.className = 'kavel-titel'; titel.textContent = k.titel || 'Onbekend';
+
+    var main = document.createElement('div'); main.className = 'kavel-main';
+    var titel = document.createElement('div'); titel.className = 'kavel-titel'; titel.textContent = k.titel || 'Onbekend';
     if (k.eigen_bod) {
-      const b = document.createElement('span');
+      var b = document.createElement('span');
       b.style.cssText = 'font-size:11px;background:#e3f2fd;color:#1565c0;padding:2px 7px;border-radius:20px;font-weight:600;margin-left:6px;vertical-align:middle';
-      b.textContent = '🙋 Mijn bod'; titel.appendChild(b);
+      b.textContent = 'Mijn bod'; titel.appendChild(b);
     }
     main.appendChild(titel);
- 
-    const meta = document.createElement('div');
-    meta.className = 'kavel-meta';
-    meta.innerHTML = 'HNVI' + (k.kavelnummer ? ' · Kavel ' + k.kavelnummer : '') + (k.url ? ' · <a href="' + k.url + '" target="_blank" style="color:var(--brand);text-decoration:none">↗ HNVI</a>' : '');
+
+    var meta = document.createElement('div'); meta.className = 'kavel-meta';
+    meta.innerHTML = 'HNVI' + (k.kavelnummer ? ' &middot; Kavel ' + k.kavelnummer : '') +
+      (k.url ? ' &middot; <a href="' + k.url + '" target="_blank" style="color:var(--brand);text-decoration:none">&#8599; HNVI</a>' : '');
     main.appendChild(meta);
- 
-    const pills = document.createElement('div');
-    pills.className = 'kavel-pills';
-    const aBadge = document.createElement('span');
-    if (k.advies==='kopen') { aBadge.className='pill pill-status s-klaar'; aBadge.textContent='✓ Bied!'; }
-    else if (k.advies==='twijfel') { aBadge.className='pill pill-status s-twijfel'; aBadge.textContent='~ Twijfel'; }
-    else if (k.advies==='skip') { aBadge.className='pill pill-status s-skip'; aBadge.textContent='✗ Skip'; }
-    else { aBadge.className='pill pill-status s-wacht'; aBadge.textContent='⏳ Wacht'; }
+
+    var pills = document.createElement('div'); pills.className = 'kavel-pills';
+    var aBadge = document.createElement('span');
+    if (k.advies==='kopen') { aBadge.className='pill pill-status s-klaar'; aBadge.textContent='Bied!'; }
+    else if (k.advies==='twijfel') { aBadge.className='pill pill-status s-twijfel'; aBadge.textContent='Twijfel'; }
+    else if (k.advies==='skip') { aBadge.className='pill pill-status s-skip'; aBadge.textContent='Skip'; }
+    else { aBadge.className='pill pill-status s-wacht'; aBadge.textContent='Wacht'; }
     pills.appendChild(aBadge);
- 
+
     if (k.huidig_bod) {
-      const p = document.createElement('span');
-      p.className = 'pill ' + (k.eigen_bod ? 'pill-eigen-bod' : 'pill-bod');
-      p.textContent = (k.eigen_bod ? '🙋 Mijn bod' : '👤 Huidig bod') + ': ' + fmt(k.huidig_bod);
-      pills.appendChild(p);
+      var p1 = document.createElement('span');
+      p1.className = 'pill ' + (k.eigen_bod ? 'pill-eigen-bod' : 'pill-bod');
+      p1.textContent = (k.eigen_bod ? 'Mijn bod' : 'Huidig bod') + ': ' + fmt(k.huidig_bod);
+      pills.appendChild(p1);
     }
     if (k.kosten) {
-      const p = document.createElement('span'); p.className = 'pill pill-totaal';
-      p.textContent = 'Incl. kosten: ' + fmt(k.kosten.totaal); pills.appendChild(p);
+      var p2 = document.createElement('span'); p2.className = 'pill pill-totaal';
+      p2.textContent = 'Incl. kosten: ' + fmt(k.kosten.totaal); pills.appendChild(p2);
     }
-    if (k.kosten?.marge != null) {
-      const p = document.createElement('span');
-      p.className = 'pill ' + (k.kosten.marge > 0 ? 'pill-marge-pos' : 'pill-marge-neg');
-      p.textContent = (k.kosten.marge > 0 ? '+' : '') + fmt(k.kosten.marge) + ' marge'; pills.appendChild(p);
+    if (k.kosten && k.kosten.marge != null) {
+      var p3 = document.createElement('span');
+      p3.className = 'pill ' + (k.kosten.marge > 0 ? 'pill-marge-pos' : 'pill-marge-neg');
+      p3.textContent = (k.kosten.marge > 0 ? '+' : '') + fmt(k.kosten.marge) + ' marge'; pills.appendChild(p3);
     }
     if (k.mp_gemiddeld) {
-      const p = document.createElement('span'); p.className = 'pill pill-mp';
-      p.textContent = 'MP ~' + fmt(k.mp_gemiddeld); pills.appendChild(p);
+      var p4 = document.createElement('span'); p4.className = 'pill pill-mp';
+      p4.textContent = 'MP ~' + fmt(k.mp_gemiddeld); pills.appendChild(p4);
     }
     main.appendChild(pills);
- 
+
     if (k.adviesReden) {
-      const r = document.createElement('div');
-      r.className = 'kavel-reden';
-      r.textContent = k.adviesReden.length > 100 ? k.adviesReden.slice(0,100) + '…' : k.adviesReden;
+      var r = document.createElement('div'); r.className = 'kavel-reden';
+      r.textContent = k.adviesReden.length > 100 ? k.adviesReden.slice(0,100) + '...' : k.adviesReden;
       main.appendChild(r);
     }
     div.appendChild(main);
- 
-    // Acties
-    const acties = document.createElement('div');
-    acties.className = 'kavel-acties';
-    const btnD = document.createElement('button'); btnD.className = 'btn-sm'; btnD.textContent = 'Details';
-    btnD.onclick = e => { e.stopPropagation(); openDetail(echteIdx); };
-    const btnH = document.createElement('button'); btnH.className = 'btn-sm'; btnH.textContent = '↺';
-    btnH.title = 'Heranalyseer';
-    btnH.onclick = e => { e.stopPropagation(); heranalyseer(echteIdx); };
-    const btnX = document.createElement('button'); btnX.className = 'btn-danger'; btnX.textContent = '✕';
-    btnX.onclick = e => { e.stopPropagation(); verwijderKavel(echteIdx); };
+
+    var acties = document.createElement('div'); acties.className = 'kavel-acties';
+    var btnD = document.createElement('button'); btnD.className = 'btn-sm'; btnD.textContent = 'Details';
+    btnD.onclick = function(e) { e.stopPropagation(); openDetail(echteIdx); };
+    var btnH = document.createElement('button'); btnH.className = 'btn-sm'; btnH.textContent = 'Heranalyseer';
+    btnH.onclick = function(e) { e.stopPropagation(); heranalyseer(echteIdx); };
+    var btnX = document.createElement('button'); btnX.className = 'btn-danger'; btnX.textContent = 'X';
+    btnX.onclick = function(e) { e.stopPropagation(); verwijderKavel(echteIdx); };
     acties.appendChild(btnD); acties.appendChild(btnH); acties.appendChild(btnX);
     div.appendChild(acties);
     list.appendChild(div);
   });
 }
- 
+
 function openDetail(idx) {
-  const k = kavels[idx];
+  var k = kavels[idx];
   switchTab('analyse');
   if (k.prijzen) toonAnalyseResultaat(k);
   else heranalyseer(idx);
 }
- 
+
 function heranalyseer(idx) {
-  const k = kavels[idx];
+  var k = kavels[idx];
   switchTab('analyse');
   document.getElementById('kavel-url').value = k.url || '';
   if (k.huidig_bod) document.getElementById('huidig-bod').value = String(k.huidig_bod);
   document.getElementById('analyse-result').style.display = 'none';
-  const type = k.eigen_bod ? 'eigen' : 'ander';
+  var type = k.eigen_bod ? 'eigen' : 'ander';
   setBodType(type, document.getElementById('bod-' + type));
 }
- 
-async function verwijderKavel(idx) {
+
+function verwijderKavel(idx) {
   kavels.splice(idx, 1);
-  await slaKavelsOp(); updateBadge(); renderOverzicht();
+  slaKavelsOp(); updateBadge(); renderOverzicht();
 }
- 
-async function analyseAlles() {
-  const te = kavels.filter(k => !k.prijzen);
-  if (te.length === 0) { alert('Alle kavels zijn al geanalyseerd.'); return; }
-  alert(te.length + ' kavels worden geanalyseerd. Dit start nu één voor één.');
-  for (const k of te) {
-    document.getElementById('kavel-url').value = k.url || '';
-    if (k.huidig_bod) document.getElementById('huidig-bod').value = String(k.huidig_bod);
-    switchTab('analyse');
-    await analyseer();
-    await new Promise(r => setTimeout(r, 3000));
-  }
-}
- 
-// ── Selectie ─────────────────────────────────────────────────────────────────
+
 function toggleSelectie() {
   selectieModus = !selectieModus;
   geselecteerd.clear();
   document.getElementById('sel-balk').style.display = selectieModus ? 'flex' : 'none';
-  document.getElementById('selecteer-btn').textContent = selectieModus ? '✕ Annuleren' : '☑ Selecteren';
+  document.getElementById('selecteer-btn').textContent = selectieModus ? 'X Annuleren' : 'Selecteren';
   renderOverzicht();
 }
- 
-function selecteerRij(gefilterdIdx) {
-  if (geselecteerd.has(gefilterdIdx)) geselecteerd.delete(gefilterdIdx);
-  else geselecteerd.add(gefilterdIdx);
+
+function selecteerRij(i) {
+  if (geselecteerd.has(i)) geselecteerd.delete(i); else geselecteerd.add(i);
   document.getElementById('sel-aantal').textContent = geselecteerd.size + ' geselecteerd';
-  const rijen = document.querySelectorAll('.kavel-row');
-  if (rijen[gefilterdIdx]) rijen[gefilterdIdx].classList.toggle('geselecteerd', geselecteerd.has(gefilterdIdx));
-  const cbs = document.querySelectorAll('.kavel-checkbox');
-  if (cbs[gefilterdIdx]) cbs[gefilterdIdx].checked = geselecteerd.has(gefilterdIdx);
+  var rijen = document.querySelectorAll('.kavel-row');
+  if (rijen[i]) rijen[i].classList.toggle('geselecteerd', geselecteerd.has(i));
+  var cbs = document.querySelectorAll('.kavel-checkbox');
+  if (cbs[i]) cbs[i].checked = geselecteerd.has(i);
 }
- 
+
 function allesAanvinken() {
-  document.querySelectorAll('.kavel-row').forEach((r, i) => { r.classList.add('geselecteerd'); geselecteerd.add(i); });
-  document.querySelectorAll('.kavel-checkbox').forEach(cb => cb.checked = true);
+  document.querySelectorAll('.kavel-row').forEach(function(r, i) { r.classList.add('geselecteerd'); geselecteerd.add(i); });
+  document.querySelectorAll('.kavel-checkbox').forEach(function(cb) { cb.checked = true; });
   document.getElementById('sel-aantal').textContent = geselecteerd.size + ' geselecteerd';
 }
- 
+
 function allesUitvinken() {
   geselecteerd.clear();
-  document.querySelectorAll('.kavel-row').forEach(r => r.classList.remove('geselecteerd'));
-  document.querySelectorAll('.kavel-checkbox').forEach(cb => cb.checked = false);
+  document.querySelectorAll('.kavel-row').forEach(function(r) { r.classList.remove('geselecteerd'); });
+  document.querySelectorAll('.kavel-checkbox').forEach(function(cb) { cb.checked = false; });
   document.getElementById('sel-aantal').textContent = '0 geselecteerd';
 }
- 
-async function verwijderSelectie() {
+
+function verwijderSelectie() {
   if (geselecteerd.size === 0) { alert('Vink eerst kavels aan.'); return; }
   if (!confirm(geselecteerd.size + ' kavel(s) verwijderen?')) return;
-  const teVerwijderen = new Set([...geselecteerd].map(i => huidigGefilterd[i]).filter(Boolean));
-  kavels = kavels.filter(k => !teVerwijderen.has(k));
+  var teVerwijderen = new Set(Array.from(geselecteerd).map(function(i) { return huidigGefilterd[i]; }).filter(Boolean));
+  kavels = kavels.filter(function(k) { return !teVerwijderen.has(k); });
   geselecteerd.clear();
   selectieModus = false;
   document.getElementById('sel-balk').style.display = 'none';
-  document.getElementById('selecteer-btn').textContent = '☑ Selecteren';
-  await slaKavelsOp(); updateBadge(); renderOverzicht();
+  document.getElementById('selecteer-btn').textContent = 'Selecteren';
+  slaKavelsOp(); updateBadge(); renderOverzicht();
 }
- 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+
 function updateBadge() { document.getElementById('badge').textContent = kavels.length; }
 function setBtn(id, txtId, disabled, html) {
   document.getElementById(id).disabled = disabled;
   document.getElementById(txtId).innerHTML = html;
 }
 function toonMsg(id, msg) {
-  const el = document.getElementById(id);
-  el.textContent = '⚠️ ' + msg;
+  var el = document.getElementById(id);
+  el.textContent = 'Fout: ' + msg;
   el.style.display = 'block';
 }
- 
-// ── Init ─────────────────────────────────────────────────────────────────────
-(async () => {
-  checkApiKey();
-  await laadKavels();
-  updateBadge();
-  renderOverzicht();
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
-  }
-})();
+
+checkApiKey();
+laadKavels();
+updateBadge();
+renderOverzicht();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(function(regs) {
+    regs.forEach(function(r) { r.unregister(); });
+  });
+}
 </script>
 </body>
 </html>
