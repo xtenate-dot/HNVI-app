@@ -432,7 +432,8 @@ function callClaude(system, userText, maxTokens) {
     console.log('HTTP status:', resp.status);
     return resp.json();
   }).then(function(data) {
-    console.log('API data:', JSON.stringify(data).substring(0, 500));
+    console.log('API data volledig:', JSON.stringify(data));
+    console.log('stop_reason:', data.stop_reason);
     if (data.error) throw new Error(data.error.type + ': ' + data.error.message);
     if (!data.content) throw new Error('Onverwachte API response: ' + JSON.stringify(data).substring(0,200));
     return data.content.map(function(b) { return b.text || ''; }).join('');
@@ -481,7 +482,7 @@ function analyseer() {
   callClaude(
     'Je bent een Nederlandse marktprijsexpert. Geef ALLEEN een geldig JSON object terug. GEEN markdown code blocks (geen ```json```), GEEN tekst ervoor of erna. Begin direct met { en eindig met }.',
     prijzenPrompt,
-    700
+    1200
   ).then(function(prijzenTxt) {
     var prijzen = parseJSON(prijzenTxt);
     if (!prijzen || !prijzen.marktplaats) throw new Error('Kon geen marktprijzen ophalen. Probeer opnieuw.');
