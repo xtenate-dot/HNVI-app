@@ -390,11 +390,22 @@ function naamUitUrl(u) {
 }
 
 function parseJSON(txt) {
-  try { return JSON.parse(txt.trim()); } catch(e) {}
-  var start = txt.indexOf('{');
-  var end = txt.lastIndexOf('}');
+  // Verwijder markdown code block markers (```json ... ```)
+  var clean = txt.replace(/```json/gi, '').replace(/```/g, '').trim();
+  try { return JSON.parse(clean); } catch(e) {}
+  
+  // Fallback: zoek het eerste { tot laatste }
+  var start = clean.indexOf('{');
+  var end = clean.lastIndexOf('}');
   if (start !== -1 && end !== -1 && end > start) {
-    try { return JSON.parse(txt.slice(start, end + 1)); } catch(e) {}
+    try { return JSON.parse(clean.slice(start, end + 1)); } catch(e) {}
+  }
+  
+  // Laatste fallback: probeer op originele tekst
+  var start2 = txt.indexOf('{');
+  var end2 = txt.lastIndexOf('}');
+  if (start2 !== -1 && end2 !== -1 && end2 > start2) {
+    try { return JSON.parse(txt.slice(start2, end2 + 1)); } catch(e) {}
   }
   return null;
 }
@@ -468,7 +479,7 @@ function analyseer() {
   console.log('Product voor analyse:', product);
 
   callClaude(
-    'Je bent een Nederlandse marktprijsexpert. Geef ALLEEN een geldig JSON object terug, geen tekst ervoor of erna.',
+    'Je bent een Nederlandse marktprijsexpert. Geef ALLEEN een geldig JSON object terug. GEEN markdown code blocks (geen ```json```), GEEN tekst ervoor of erna. Begin direct met { en eindig met }.',
     prijzenPrompt,
     700
   ).then(function(prijzenTxt) {
