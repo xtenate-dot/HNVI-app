@@ -401,6 +401,7 @@ function parseJSON(txt) {
 
 function callClaude(system, userText, maxTokens) {
   var key = getApiKey();
+  console.log('API key aanwezig:', key ? 'JA (lengte ' + key.length + ')' : 'NEE');
   if (!key) return Promise.reject(new Error('Voer eerst een API key in.'));
   return fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -417,10 +418,16 @@ function callClaude(system, userText, maxTokens) {
       messages: [{ role: 'user', content: userText }]
     })
   }).then(function(resp) {
+    console.log('HTTP status:', resp.status);
     return resp.json();
   }).then(function(data) {
-    if (data.error) throw new Error('API: ' + data.error.message);
+    console.log('API data:', JSON.stringify(data).substring(0, 500));
+    if (data.error) throw new Error(data.error.type + ': ' + data.error.message);
+    if (!data.content) throw new Error('Onverwachte API response: ' + JSON.stringify(data).substring(0,200));
     return data.content.map(function(b) { return b.text || ''; }).join('');
+  }).catch(function(err) {
+    console.error('callClaude fout:', err);
+    throw err;
   });
 }
 
